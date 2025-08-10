@@ -1,26 +1,134 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+html {
+  color-scheme: light dark;
+}
+* {
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+.verified-badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  font-size: 0.75rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  margin-left: 0.5rem;
+}
+
+.dark .verified-badge {
+  background-color: #1e3a8a;
+  color: #93c5fd;
+}
+/* Light mode gradient - softer pastel colors */
+.hero-animation {
+  background: linear-gradient(
+    135deg,
+    #e0f7fa 0%,
+    /* Light cyan */ #b2ebf2 15%,
+    /* Pale blue */ #8bdee9 30%,
+    /* Light teal */ #4dd0e1 45%,
+    /* Soft turquoise */ #26c6da 60%,
+    /* Bright cyan */ #52d2e2 75%,
+    /* Cyan */ #25a4b2 90% /* Dark cyan */
+  );
+  background-size: 300% 300%;
+}
+
+/* Dark mode gradient - deeper jewel tones */
+.dark .hero-animation {
+  background: linear-gradient(
+    135deg,
+    #050c16 0%,
+    /* Deep blue */ #041529 15%,
+    /* Royal blue */ #04325f 30%,
+    /* Bright blue */ #1e88e5 45%,
+    /* Azure */ #2196f3 60%,
+    /* Dodger blue */ #42a5f5 75%,
+    /* Light blue */ #64b5f6 90% /* Sky blue */
+  );
+  background-size: 300% 300%;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #1771c6;
+}
+::-webkit-scrollbar-thumb {
+  background: #f5f5f5b0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #32ae7e;
+}
+@keyframes changeBackgroundColor {
+  0% {
+    background-position: 0% 50%;
+    opacity: 1;
+  }
+  25% {
+    background-position: 50% 25%;
+    opacity: 0.95;
+  }
+  50% {
+    background-position: 100% 50%;
+    opacity: 1;
+  }
+  75% {
+    background-position: 50% 75%;
+    opacity: 0.95;
+  }
+  100% {
+    background-position: 0% 50%;
+    opacity: 1;
+  }
+}
+/* Remove any existing .pro-sidebar.md styles */
+.pro-sidebar {
+  height: 100vh;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  transition: transform 0.3s ease;
+}
+
+/* In your global CSS file */
+body {
+  overflow-x: hidden;
+}
+
+.MuiDrawer-root {
+  z-index: 1200;
+}
+
+.MuiCollapse-wrapperInner {
+  overflow: visible !important;
 }

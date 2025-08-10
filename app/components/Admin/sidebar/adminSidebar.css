@@ -1,0 +1,45 @@
+:root {
+  --sidebar-bg-dark: linear-gradient(
+    135deg,
+    #050c16 0%,
+    #041529 15%,
+    #04325f 30%,
+    #1e88e5 45%,
+    #2196f3 60%,
+    #42a5f5 75%,
+    #64b5f6 90%
+  );
+  --sidebar-bg-light: linear-gradient(
+    135deg,
+    #e0f7fa 0%,
+    #b2ebf2 15%,
+    #8bdee9 30%,
+    #4dd0e1 45%,
+    #26c6da 60%,
+    #52d2e2 75%,
+    #25a4b2 90%
+  );
+  --text-dark: #fff;
+  --text-light: #000;
+  --hover-dark: rgba(255, 255, 255, 0.1);
+  --hover-light: rgba(0, 0, 0, 0.05);
+  --active-dark: rgba(255, 255, 255, 0.2);
+  --active-light: rgba(0, 0, 0, 0.1);
+}
+
+.pro-sidebar {
+  background: var(--sidebar-bg) !important;
+  color: var(--text-color) !important;
+}
+
+.pro-sidebar .pro-menu-item {
+  color: var(--text-color) !important;
+}
+
+.pro-sidebar .pro-menu-item:hover {
+  background: var(--hover-bg) !important;
+}
+
+.pro-sidebar .pro-menu-item.active {
+  background: var(--active-bg) !important;
+}
