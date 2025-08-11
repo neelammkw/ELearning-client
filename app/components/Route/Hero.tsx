@@ -104,7 +104,7 @@ const Hero = () => {
       <div className="container px-4 md:px-6 mx-auto">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* Enhanced Image with 3D Effects - Fixed Version */}
-          <div className="flex justify-center">
+          <div className="flex justify-center mt-8 md:mt-0">
             <motion.div
               ref={imageRef}
               className={`relative rounded-xl overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] w-60 h-60 md:w-76 md:h-76 lg:w-[400px] lg:h-[400px] 

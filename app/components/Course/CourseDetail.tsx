@@ -484,7 +484,7 @@ const CourseDetail = ({ id }: Props) => {
                       30-Day Money-Back Guarantee
                     </div>
 
-                    <div className="space-y-3 text-sm dark:text-gray-300">
+                    <div className={`space-y-3 text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
                       <div className="flex items-center gap-3">
                         <FiBarChart2 className="text-blue-500" />
                         <span>

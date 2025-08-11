@@ -64,6 +64,14 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
       [reviewId]: !prev[reviewId],
     }));
   };
+  useEffect(() => {
+    console.log("Reviews data:", reviewsData);
+    if (reviewsData?.reviews) {
+      reviewsData.reviews.forEach(review => {
+        console.log(`Review ${review._id} replies:`, review.commentReplies);
+      });
+    }
+  }, [reviewsData]);
 
   const handleReviewSubmit = async () => {
     if (!reviewRating) {
@@ -223,10 +231,10 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
                       <h4 className="font-semibold">{review.user?.name}</h4>
                       {(review.user?.role === "admin" ||
                         review.user?.role === "teacher") && (
-                        <span className="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-200">
-                          Instructor
-                        </span>
-                      )}
+                          <span className="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-200">
+                            Instructor
+                          </span>
+                        )}
                     </div>
 
                     <div className="flex items-center mt-1">
@@ -261,11 +269,10 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
                       );
                       setReplyInput("");
                     }}
-                    className={`p-2 rounded-full ${
-                      replyingToReviewId === review._id
-                        ? "bg-blue-100 text-blue-600 dark:bg-gray-700"
-                        : "text-blue-500 hover:text-blue-600 hover:bg-blue-100 dark:hover:bg-gray-700"
-                    }`}
+                    className={`p-2 rounded-full ${replyingToReviewId === review._id
+                      ? "bg-blue-100 text-blue-600 dark:bg-gray-700"
+                      : "text-blue-500 hover:text-blue-600 hover:bg-blue-100 dark:hover:bg-gray-700"
+                      }`}
                     title="Reply to this review"
                   >
                     <svg
@@ -334,13 +341,13 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
                     <div className="space-y-4 mt-2">
                       {review.commentReplies.map((reply: any) => (
                         <div
-                          key={reply._id}
+                          key={reply._id || reply.createdAt} // Fallback key
                           className={`p-4 rounded-lg ${theme === "dark" ? "bg-gray-700" : "bg-gray-50"}`}
                         >
                           <div className="flex items-start gap-3">
                             <Image
                               src={reply.user?.avatar?.url || avatarIcon}
-                              alt={reply.user?.name}
+                              alt={reply.user?.name || "User"}
                               width={32}
                               height={32}
                               className="w-8 h-8 rounded-full"
@@ -348,21 +355,19 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
                             <div>
                               <div className="flex items-center">
                                 <h5 className="font-medium">
-                                  {reply.user?.name}
+                                  {reply.user?.name || "Anonymous User"}
                                 </h5>
                                 {(reply.user?.role === "admin" ||
                                   reply.user?.role === "teacher") && (
-                                  <span className="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-200">
-                                    Instructor
-                                  </span>
-                                )}
+                                    <span className="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-200">
+                                      Instructor
+                                    </span>
+                                  )}
                               </div>
                               <p className="text-sm text-gray-500 dark:text-gray-400">
                                 {formatDate(reply.createdAt)}
                               </p>
-                              <p
-                                className={`mt-1 ${theme === "dark" ? " text-gray-100" : "text-gray-600"} `}
-                              >
+                              <p className={`mt-1 ${theme === "dark" ? "text-gray-100" : "text-gray-600"}`}>
                                 {reply.reply}
                               </p>
                             </div>
