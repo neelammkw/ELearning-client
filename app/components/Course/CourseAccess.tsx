@@ -434,10 +434,10 @@ const CourseAccess = ({ id, user }: Props) => {
                             <h4 className="font-medium">{q.user?.name}</h4>
                             {(q.user?.role === "admin" ||
                               q.user?.role === "teacher") && (
-                              <span className="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-200">
-                                Verified
-                              </span>
-                            )}
+                                <span className="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-200">
+                                  Verified
+                                </span>
+                              )}
                           </div>
                           <p className="text-sm text-gray-500 dark:text-gray-400">
                             {new Date(q.createdAt).toLocaleString()}
@@ -510,10 +510,10 @@ const CourseAccess = ({ id, user }: Props) => {
                                           </h4>
                                           {(reply.user?.role === "admin" ||
                                             reply.user?.role === "teacher") && (
-                                            <span className="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-200">
-                                              Verified
-                                            </span>
-                                          )}
+                                              <span className="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-200">
+                                                Verified
+                                              </span>
+                                            )}
                                         </div>
                                         <p className="text-sm text-gray-500 dark:text-gray-400">
                                           {new Date(
@@ -638,10 +638,10 @@ const CourseAccess = ({ id, user }: Props) => {
                             <h4 className="font-medium">{review.user.name}</h4>
                             {(review.user.role === "admin" ||
                               review.user.role === "teacher") && (
-                              <span className="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-200">
-                                Verified
-                              </span>
-                            )}
+                                <span className="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-200">
+                                  Verified
+                                </span>
+                              )}
                           </div>
                           <div className="flex items-center">
                             {[...Array(5)].map((_, i) => (
@@ -724,10 +724,10 @@ const CourseAccess = ({ id, user }: Props) => {
                                         </h4>
                                         {(reply.user.role === "admin" ||
                                           reply.user.role === "teacher") && (
-                                          <span className="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-200">
-                                            Verified
-                                          </span>
-                                        )}
+                                            <span className="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-200">
+                                              Verified
+                                            </span>
+                                          )}
                                       </div>
                                       <p className="text-sm text-gray-500 dark:text-gray-400">
                                         {new Date(
@@ -812,11 +812,10 @@ const CourseAccess = ({ id, user }: Props) => {
           </h2>
           <button
             onClick={() => router.push("/courses")}
-            className={`mt-6 px-6 py-2 rounded-lg font-medium transition-all duration-300 ${
-              theme === "dark"
+            className={`mt-6 px-6 py-2 rounded-lg font-medium transition-all duration-300 ${theme === "dark"
                 ? "bg-blue-600 hover:bg-blue-700 text-white"
                 : "bg-blue-500 hover:bg-blue-600 text-white"
-            }`}
+              }`}
           >
             Browse Courses
           </button>
@@ -926,11 +925,10 @@ const CourseAccess = ({ id, user }: Props) => {
                   <button
                     onClick={() => navigateVideo("prev")}
                     disabled={activeSection === 0 && activeVideo === 0}
-                    className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                      activeSection === 0 && activeVideo === 0
+                    className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${activeSection === 0 && activeVideo === 0
                         ? "bg-gray-300 dark:bg-gray-700 cursor-not-allowed"
                         : "bg-blue-500 hover:bg-blue-600 text-white"
-                    }`}
+                      }`}
                   >
                     Previous
                   </button>
@@ -956,39 +954,35 @@ const CourseAccess = ({ id, user }: Props) => {
                     disabled={
                       activeSection === groupedContent.length - 1 &&
                       activeVideo ===
-                        groupedContent[activeSection].videos.length - 1
+                      groupedContent[activeSection].videos.length - 1
                     }
-                    className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                      activeSection === groupedContent.length - 1 &&
-                      activeVideo ===
+                    className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${activeSection === groupedContent.length - 1 &&
+                        activeVideo ===
                         groupedContent[activeSection].videos.length - 1
                         ? "bg-gray-300 dark:bg-gray-700 cursor-not-allowed"
                         : "bg-blue-500 hover:bg-blue-600 text-white"
-                    }`}
+                      }`}
                   >
                     Next
                   </button>
                 </div>
 
                 {/* Tabs Navigation */}
-                <div
-                  className={`mt-4  rounded-lg ${theme === "dark" ? "bg-gray-500/50 text-gray-100" : "bg-gray-200 text-gray-900"}`}
-                >
-                  {/* Improved Tabs Navigation */}
-                  <div className="flex border-b border-gray-200 dark:border-gray-700">
+                <div className={`mt-4 rounded-lg overflow-hidden ${theme === "dark" ? "bg-gray-500/50 text-gray-100" : "bg-gray-200 text-gray-900"}`}>
+                  <div className="flex overflow-x-auto no-scrollbar border-b border-gray-200 dark:border-gray-700">
+
                     {["overview", "resources", "qna", "reviews"].map((tab) => (
                       <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
-                        className={`px-4 py-3 font-medium text-sm capitalize transition-colors duration-200 ${
-                          activeTab === tab
+                        className={`px-3 py-2 font-medium text-sm capitalize transition-colors duration-200 ${activeTab === tab
                             ? theme === "dark"
                               ? "text-white border-b-2 border-blue-500 bg-gray-800/50"
                               : "text-black border-b-2 border-blue-500 bg-gray-100"
                             : theme === "dark"
                               ? "text-gray-200 hover:text-white hover:bg-gray-900/30"
                               : "text-gray-600 hover:text-black hover:bg-gray-100"
-                        }`}
+                          }`}
                       >
                         {tab.replace("qna", "Q&A")}
                       </button>
@@ -997,11 +991,10 @@ const CourseAccess = ({ id, user }: Props) => {
 
                   {/* Improved Tab Content Container */}
                   <div
-                    className={`p-4 rounded-b-lg ${
-                      theme === "dark"
+                    className={`p-3 rounded-b-lg ${theme === "dark"
                         ? "bg-gray-600/50 text-gray-100"
                         : "bg-gray-50 text-gray-800"
-                    } shadow-inner`}
+                      } shadow-inner`}
                   >
                     {renderTabContent()}
                   </div>
@@ -1035,13 +1028,12 @@ const CourseAccess = ({ id, user }: Props) => {
                     className="border-b border-gray-200 dark:border-gray-700"
                   >
                     <div
-                      className={`p-3 cursor-pointer flex justify-between items-center ${
-                        activeSection === sectionIndex
+                      className={`p-3 cursor-pointer flex justify-between items-center ${activeSection === sectionIndex
                           ? theme === "dark"
                             ? "bg-gray-600"
                             : "bg-gray-200"
                           : ""
-                      }`}
+                        }`}
                       onClick={() => {
                         setActiveSection(sectionIndex);
                         setActiveVideo(0);
@@ -1066,30 +1058,27 @@ const CourseAccess = ({ id, user }: Props) => {
                               initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ duration: 0.2 }}
-                              className={`p-2 rounded-md cursor-pointer flex items-center gap-2 mb-1 ${
-                                activeVideo === videoIndex
+                              className={`p-2 rounded-md cursor-pointer flex items-center gap-2 mb-1 ${activeVideo === videoIndex
                                   ? theme === "dark"
                                     ? "bg-blue-900/30"
                                     : "bg-blue-100"
                                   : theme === "dark"
                                     ? "hover:bg-gray-700"
                                     : "hover:bg-gray-100"
-                              }`}
+                                }`}
                               onClick={() => setActiveVideo(videoIndex)}
                             >
                               <div
-                                className={`w-2 h-2 rounded-full ${
-                                  user?.completedLectures?.includes(video._id)
+                                className={`w-2 h-2 rounded-full ${user?.completedLectures?.includes(video._id)
                                     ? "bg-green-500"
                                     : "bg-gray-400"
-                                }`}
+                                  }`}
                               />
                               <span
-                                className={`text-sm ${
-                                  theme === "dark"
+                                className={`text-sm ${theme === "dark"
                                     ? "text-gray-300"
                                     : "text-gray-700"
-                                }`}
+                                  }`}
                               >
                                 {video.title}
                               </span>

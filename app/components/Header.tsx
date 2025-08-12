@@ -194,8 +194,8 @@ const Header: FC<HeaderProps> = ({
                         onClick={handleLogout}
                         className={`flex items-center w-full text-left px-4 py-3 text-sm rounded-b-lg ${
                           theme === "dark"
-                            ? "hover:bg-gray-300"
-                            : "hover:bg-gray-100"
+                            ? "bg-gray-200"
+                            : "bg-gray-700"
                         }`}
                       >
                         <HiOutlineLogout className="mr-2" />
