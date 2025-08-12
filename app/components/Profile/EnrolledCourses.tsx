@@ -14,7 +14,7 @@ const EnrolledCourses: FC = () => {
   console.log("Loading state:", isLoading);
   console.log("Error state:", isError);
 
-  const courses = response?.courses || []; // Adjusted to match potential response structure
+  const courses = response || []; // Adjusted to match potential response structure
   console.log("Courses data:", courses);
 
   if (isLoading) {
