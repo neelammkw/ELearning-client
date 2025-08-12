@@ -245,8 +245,9 @@ const AdminSideBar: React.FC<AdminSidebarProps> = ({
                   onClick={() => handleItemClick(item.path)}
                   sx={{
                     pl: collapsed ? 2 : 2.5,
+                    pr: collapsed ? 2 : 2.5,
                     minHeight: 40,
-                    justifyContent: "initial",
+                    justifyContent: collapsed ? "center" : "initial",
                     backgroundColor:
                       router.pathname === item.path
                         ? currentTheme === "dark"
@@ -272,6 +273,11 @@ const AdminSideBar: React.FC<AdminSidebarProps> = ({
                         minWidth: 0,
                         mr: collapsed ? 0 : 2,
                         justifyContent: "center",
+                        width: collapsed ? 24 : 'auto',
+                        height: collapsed ? 24 : 'auto',
+                        display: 'flex',
+                        alignItems: 'center',
+
                         color: currentTheme === "dark" ? "#FFFFFF" : "#000000",
                       }}
                     >
