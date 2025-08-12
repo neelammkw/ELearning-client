@@ -51,7 +51,7 @@ const CoursePlayer: FC<Props> = ({
             controlsList="nodownload noremoteplayback"
             disablePictureInPicture
             onContextMenu={(e) => e.preventDefault()}
-            className="w-full h-[450px] rounded"
+            className="w-full rounded"
             onLoadStart={onLoadStart}
             onLoadedData={onLoaded}
           >

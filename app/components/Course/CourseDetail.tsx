@@ -276,7 +276,7 @@ const CourseDetail = ({ id }: Props) => {
                   {/* Demo Video Player */}
                   {course.demoUrl?.url && (
                     <div className="mb-4 md:mb-6">
-                      <div className="h-[320px] md:w-[500px] mx-auto mb-4 rounded-lg overflow-hidden">
+                      <div className="m-2 md:w-[500px] mx-auto mb-4 rounded-lg overflow-hidden">
                         <CoursePlayer
                           videoUrl={course.demoUrl.url}
                           title={`${course.name} - Preview`}

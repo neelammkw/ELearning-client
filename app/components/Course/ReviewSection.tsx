@@ -9,6 +9,7 @@ import {
   useGetCourseReviewsQuery,
 } from "@/redux/features/courses/coursesApi";
 import toast from "react-hot-toast";
+import Reviews from "../Route/Reviews";
 
 const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
   const { theme } = useTheme();
@@ -323,15 +324,15 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
 
                   {expandedReviews[review._id] && (
                     <div className="space-y-4 mt-2">
-                      {review.commentReplies.map((reply: any) => (
+                      {reviews.map((reply: any) => (
                         <div
-                          key={reply._id || reply.createdAt}
+                          key={reply?.commentReplies?._id || reply.commentReplies?.createdAt}
                           className={`p-4 rounded-lg ${theme === "dark" ? "bg-gray-700" : "bg-gray-50"}`}
                         >
                           <div className="flex items-start gap-3">
                             <Image
-                              src={reply.user?.avatar?.url || avatarIcon}
-                              alt={reply.user?.name || "User"}
+                              src={reply?.user?.avatar?.url || avatarIcon}
+                              alt={reply?.user?.name || "User"}
                               width={32}
                               height={32}
                               className="w-8 h-8 rounded-full"
@@ -339,19 +340,19 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
                             <div>
                               <div className="flex items-center">
                                 <h5 className="font-medium">
-                                  {reply.user?.name || "Anonymous"}
+                                  {reply?.user?.name || "Anonymous"}
                                 </h5>
-                                {(reply.user?.role === "admin" || reply.user?.role === "teacher") && (
+                                {(reply?.user?.role === "admin" || reply?.user?.role === "teacher") && (
                                   <span className="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-200">
                                     Instructor
                                   </span>
                                 )}
                               </div>
                               <p className="text-sm text-gray-500 dark:text-gray-400">
-                                {formatDate(reply.createdAt)}
+                                {formatDate(reply?.commentReplies?.createdAt)}
                               </p>
                               <p className={`mt-1 ${theme === "dark" ? "text-gray-100" : "text-gray-600"}`}>
-                                {reply.reply}
+                                {reply?.commentReplies?.comment}
                               </p>
                             </div>
                           </div>
