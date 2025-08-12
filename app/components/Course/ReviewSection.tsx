@@ -326,7 +326,7 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
                     <div className="space-y-4 mt-2">
                       {reviews.map((reply: any) => (
                         <div
-                          key={reply?.commentReplies?._id || reply.commentReplies?.createdAt}
+                          key={reply?.commentReplies?._id || reply?.commentReplies?.createdAt}
                           className={`p-4 rounded-lg ${theme === "dark" ? "bg-gray-700" : "bg-gray-50"}`}
                         >
                           <div className="flex items-start gap-3">
@@ -349,10 +349,10 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
                                 )}
                               </div>
                               <p className="text-sm text-gray-500 dark:text-gray-400">
-                                {formatDate(reply?.commentReplies?.createdAt)}
+                                {formatDate(reply?.createdAt)}
                               </p>
                               <p className={`mt-1 ${theme === "dark" ? "text-gray-100" : "text-gray-600"}`}>
-                                {reply?.commentReplies?.comment}
+                                {reply?.comment}
                               </p>
                             </div>
                           </div>
