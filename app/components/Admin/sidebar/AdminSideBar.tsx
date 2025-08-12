@@ -273,8 +273,8 @@ const AdminSideBar: React.FC<AdminSidebarProps> = ({
                         minWidth: 0,
                         mr: collapsed ? 0 : 2,
                         justifyContent: "center",
-                        width: collapsed ? 24 : 'auto',
-                        height: collapsed ? 24 : 'auto',
+                        width: 20,
+                        height: 20,
                         display: 'flex',
                         alignItems: 'center',
 
@@ -288,6 +288,7 @@ const AdminSideBar: React.FC<AdminSidebarProps> = ({
                     primary={item.text}
                     sx={{
                       opacity: collapsed ? 0 : 1,
+                      display: collapsed ? 'none' : 'block',
                       color: currentTheme === "dark" ? "#FFFFFF" : "#000000",
                       transition: "opacity 0.2s ease",
                     }}
