@@ -104,11 +104,10 @@ const Header: FC<HeaderProps> = ({
       <div
         className={`
         w-full h-[80px] fixed z-[80] top-0 left-0
-        hero-animation ${
-          theme === "dark"
+        hero-animation ${theme === "dark"
             ? "dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800"
             : "bg-gradient-to-br from-blue-50 to-purple-50"
-        }
+          }
         transition-all duration-500
       `}
       >
@@ -181,22 +180,20 @@ const Header: FC<HeaderProps> = ({
                     >
                       <Link
                         href="/profile"
-                        className={`flex items-center px-4 py-3 text-sm rounded-t-lg ${
-                          theme === "dark"
+                        className={`flex items-center px-4 py-3 text-sm rounded-t-lg ${theme === "dark"
                             ? "hover:bg-gray-300"
                             : "hover:bg-gray-100"
-                        }`}
+                          }`}
                       >
                         <HiOutlineUserCircle className="mr-2" />
                         Profile
                       </Link>
                       <button
                         onClick={handleLogout}
-                        className={`flex items-center w-full text-left px-4 py-3 text-sm rounded-b-lg ${
-                          theme === "dark"
-                            ? "bg-gray-200"
+                        className={`flex items-center w-full text-left px-4 py-3 text-sm rounded-b-lg ${theme === "dark"
+                            ? "bg-gray-300"
                             : "bg-gray-700"
-                        }`}
+                          }`}
                       >
                         <HiOutlineLogout className="mr-2" />
                         Logout
@@ -278,11 +275,10 @@ const Header: FC<HeaderProps> = ({
                   <>
                     <Link
                       href="/profile"
-                      className={`flex items-center px-3 py-2 rounded-lg ${
-                        theme === "dark"
+                      className={`flex items-center px-3 py-2 rounded-lg ${theme === "dark"
                           ? "hover:bg-gray-800"
                           : "hover:bg-gray-100"
-                      }`}
+                        }`}
                       onClick={() => setOpenSidebar(false)}
                     >
                       <Image
@@ -292,7 +288,7 @@ const Header: FC<HeaderProps> = ({
                         height={28}
                         className="rounded-full mr-3"
                       />
-                      <div className={`${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+                      <div className={`${theme === "dark" ? "text-gray-300" : "text-gray-900"}`}>
                         <p className="font-medium text-sm">{user.name}</p>
                         <p className="text-xs ">View profile</p>
                       </div>
@@ -303,14 +299,13 @@ const Header: FC<HeaderProps> = ({
                         handleLogout();
                         setOpenSidebar(false);
                       }}
-                      className={`flex items-center w-full px-3 py-2 rounded-lg text-left ${
-                        theme === "dark"
-                          ? "hover:bg-gray-300 "
-                          : "hover:bg-gray-500"
-                      }`}
+                      className={`flex items-center w-full px-3 py-2 rounded-lg text-left ${theme === "dark"
+                          ? "hover:bg-gray-300 text-gray-300"
+                          : "hover:bg-gray-500 text-gray-800"
+                        }`}
                     >
                       <HiOutlineLogout className="mr-3 text-base" />
-                      <span className={`text-sm ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>Logout</span>
+                      <span className={`text-sm ${theme === "dark" ? "text-gray-300" : "text-gray-800"}`}>Logout</span>
                     </button>
                   </>
                 ) : (
@@ -320,11 +315,10 @@ const Header: FC<HeaderProps> = ({
                       setOpen && setOpen(true);
                       setOpenSidebar(false);
                     }}
-                    className={`flex items-center justify-center w-full px-3 py-2.5 rounded-lg ${
-                      theme === "dark"
+                    className={`flex items-center justify-center w-full px-3 py-2.5 rounded-lg ${theme === "dark"
                         ? "bg-purple-700 hover:bg-purple-600"
                         : "bg-purple-600 hover:bg-purple-700"
-                    } text-white text-sm`}
+                      } text-white text-sm`}
                   >
                     <HiOutlineUserCircle className="mr-2 text-base" />
                     <span>Login / Register</span>
@@ -334,9 +328,8 @@ const Header: FC<HeaderProps> = ({
             </div>
 
             <div
-              className={`absolute bottom-0 left-0 right-0 p-3 text-center text-xs ${
-                theme === "dark" ? "text-gray-400" : "text-gray-100"
-              } border-t ${theme === "dark" ? "border-gray-700" : "border-gray-200"}`}
+              className={`absolute bottom-0 left-0 right-0 p-3 text-center text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-100"
+                } border-t ${theme === "dark" ? "border-gray-700" : "border-gray-200"}`}
             >
               © 2025 ELearning. All rights reserved.
             </div>
