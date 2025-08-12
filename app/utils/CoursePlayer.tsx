@@ -33,11 +33,11 @@ const CoursePlayer: FC<Props> = ({
   };
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="flex flex-col items-center">
       {isValidVideo ? (
         isYouTube ? (
           <iframe
-            className="w-full h-[450px] rounded"
+            className="w-full rounded"
             src={getYouTubeEmbedUrl(videoUrl)}
             title={title}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -60,7 +60,7 @@ const CoursePlayer: FC<Props> = ({
           </video>
         )
       ) : (
-        <div className="w-full h-[450px] bg-gray-200 flex items-center justify-center rounded dark:bg-gray-700">
+        <div className="w-full  bg-gray-200 flex items-center justify-center rounded dark:bg-gray-700">
           <div className="text-center p-6">
             <p className="text-lg font-medium dark:text-white">
               Video content not available

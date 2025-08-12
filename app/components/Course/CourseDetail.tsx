@@ -276,7 +276,7 @@ const CourseDetail = ({ id }: Props) => {
                   {/* Demo Video Player */}
                   {course.demoUrl?.url && (
                     <div className="mb-4 md:mb-6">
-                      <div className="h-[250px] md:w-[500px] mx-auto mb-4 rounded-lg overflow-hidden">
+                      <div className="h-[320px] md:w-[500px] mx-auto mb-4 rounded-lg overflow-hidden">
                         <CoursePlayer
                           videoUrl={course.demoUrl.url}
                           title={`${course.name} - Preview`}
@@ -522,11 +522,11 @@ const CourseDetail = ({ id }: Props) => {
                     </div>
 
                     {course.prerequisites?.length > 0 && (
-                      <div className={`mt-6 {theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+                      <div className={`mt-6 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
                         <h4 className="font-bold mb-2 dark:text-white">
                           Prerequisites
                         </h4>
-                        <ul className="space-y-2 dark:text-gray-300">
+                        <ul className="space-y-2">
                           {course.prerequisites.map(
                             (prereq: any, index: number) => (
                               <li
@@ -534,7 +534,7 @@ const CourseDetail = ({ id }: Props) => {
                                 className="flex items-start gap-2"
                               >
                                 <FiCheckCircle className="text-green-500 mt-1 flex-shrink-0" />
-                                <span>{prereq.title}</span>
+                                <span className={`${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>{prereq.title}</span>
                               </li>
                             ),
                           )}

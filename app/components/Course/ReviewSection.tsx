@@ -12,12 +12,8 @@ import toast from "react-hot-toast";
 
 const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
   const { theme } = useTheme();
-  const [expandedReviews, setExpandedReviews] = useState<
-    Record<string, boolean>
-  >({});
-  const [replyingToReviewId, setReplyingToReviewId] = useState<string | null>(
-    null,
-  );
+  const [expandedReviews, setExpandedReviews] = useState<Record<string, boolean>>({});
+  const [replyingToReviewId, setReplyingToReviewId] = useState<string | null>(null);
   const [replyInput, setReplyInput] = useState("");
   const [reviewRating, setReviewRating] = useState(0);
   const [reviewComment, setReviewComment] = useState("");
@@ -26,8 +22,7 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
   // API calls
   const [addCourseReview] = useAddCourseReviewMutation();
   const [replyToCourseReview] = useReplyToCourseReviewMutation();
-  const { data: reviewsData, refetch: refetchReviews } =
-    useGetCourseReviewsQuery(course._id);
+  const { data: reviewsData, refetch: refetchReviews } = useGetCourseReviewsQuery(course._id);
 
   const reviews = reviewsData?.reviews || course.reviews || [];
 
@@ -37,23 +32,19 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
     const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
     let interval = Math.floor(seconds / 31536000);
-    if (interval >= 1)
-      return `${interval} year${interval === 1 ? "" : "s"} ago`;
+    if (interval >= 1) return `${interval} year${interval === 1 ? "" : "s"} ago`;
 
     interval = Math.floor(seconds / 2592000);
-    if (interval >= 1)
-      return `${interval} month${interval === 1 ? "" : "s"} ago`;
+    if (interval >= 1) return `${interval} month${interval === 1 ? "" : "s"} ago`;
 
     interval = Math.floor(seconds / 86400);
     if (interval >= 1) return `${interval} day${interval === 1 ? "" : "s"} ago`;
 
     interval = Math.floor(seconds / 3600);
-    if (interval >= 1)
-      return `${interval} hour${interval === 1 ? "" : "s"} ago`;
+    if (interval >= 1) return `${interval} hour${interval === 1 ? "" : "s"} ago`;
 
     interval = Math.floor(seconds / 60);
-    if (interval >= 1)
-      return `${interval} minute${interval === 1 ? "" : "s"} ago`;
+    if (interval >= 1) return `${interval} minute${interval === 1 ? "" : "s"} ago`;
 
     return `${Math.floor(seconds)} second${seconds === 1 ? "" : "s"} ago`;
   };
@@ -64,6 +55,7 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
       [reviewId]: !prev[reviewId],
     }));
   };
+
   useEffect(() => {
     console.log("Reviews data:", reviewsData);
     if (reviewsData?.reviews) {
@@ -125,9 +117,7 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
   return (
     <div className="mt-12">
       <div className="flex justify-between items-center mb-6">
-        <h2
-          className={`text-2xl font-bold ${theme === "dark" ? "text-white" : "text-black"} `}
-        >
+        <h2 className={`text-2xl font-bold ${theme === "dark" ? "text-white" : "text-black"}`}>
           Reviews
         </h2>
         {!showReviewForm && user && (
@@ -142,9 +132,7 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
 
       {/* Add review form */}
       {showReviewForm && (
-        <div
-          className={`mb-8 p-6 rounded-lg ${theme === "dark" ? "bg-gray-800 text-gray-100" : "bg-gray-100"}`}
-        >
+        <div className={`mb-8 p-6 rounded-lg ${theme === "dark" ? "bg-gray-800 text-gray-100" : "bg-gray-100"}`}>
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-semibold">Write Your Review</h3>
             <button
@@ -221,20 +209,19 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
                 <div className="flex items-start gap-4">
                   <Image
                     src={review.user?.avatar?.url || avatarIcon}
-                    alt={review.user?.name}
+                    alt={review.user?.name || "User"}
                     width={48}
                     height={48}
                     className="w-12 h-12 rounded-full"
                   />
                   <div className="flex-1">
                     <div className="flex items-center">
-                      <h4 className="font-semibold">{review.user?.name}</h4>
-                      {(review.user?.role === "admin" ||
-                        review.user?.role === "teacher") && (
-                          <span className="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-200">
-                            Instructor
-                          </span>
-                        )}
+                      <h4 className="font-semibold">{review.user?.name || "Anonymous"}</h4>
+                      {(review.user?.role === "admin" || review.user?.role === "teacher") && (
+                        <span className="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-200">
+                          Instructor
+                        </span>
+                      )}
                     </div>
 
                     <div className="flex items-center mt-1">
@@ -252,9 +239,7 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
                       </span>
                     </div>
 
-                    <p
-                      className={`mt-2 ${theme === "dark" ? " text-gray-100" : "text-gray-600"}`}
-                    >
+                    <p className={`mt-2 ${theme === "dark" ? "text-gray-100" : "text-gray-600"}`}>
                       {review.comment}
                     </p>
                   </div>
@@ -264,15 +249,14 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
                 {user && (
                   <button
                     onClick={() => {
-                      setReplyingToReviewId(
-                        replyingToReviewId === review._id ? null : review._id,
-                      );
+                      setReplyingToReviewId(replyingToReviewId === review._id ? null : review._id);
                       setReplyInput("");
                     }}
-                    className={`p-2 rounded-full ${replyingToReviewId === review._id
-                      ? "bg-blue-100 text-blue-600 dark:bg-gray-700"
-                      : "text-blue-500 hover:text-blue-600 hover:bg-blue-100 dark:hover:bg-gray-700"
-                      }`}
+                    className={`p-2 rounded-full ${
+                      replyingToReviewId === review._id
+                        ? "bg-blue-100 text-blue-600 dark:bg-gray-700"
+                        : "text-blue-500 hover:text-blue-600 hover:bg-blue-100 dark:hover:bg-gray-700"
+                    }`}
                     title="Reply to this review"
                   >
                     <svg
@@ -337,45 +321,42 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
                     )}
                   </button>
 
-{expandedReviews[review._id] && (
+                  {expandedReviews[review._id] && (
                     <div className="space-y-4 mt-2">
-                      {review.commentReplies.map((reply: any) => {
-                        const replyUser = getReplyUser(reply);
-                        return (
-                          <div
-                            key={reply._id || reply.createdAt}
-                            className={`p-4 rounded-lg ${theme === "dark" ? "bg-gray-700" : "bg-gray-50"}`}
-                          >
-                            <div className="flex items-start gap-3">
-                              <Image
-                                src={replyUser.avatar?.url || avatarIcon}
-                                alt={replyUser.name}
-                                width={32}
-                                height={32}
-                                className="w-8 h-8 rounded-full"
-                              />
-                              <div>
-                                <div className="flex items-center">
-                                  <h5 className="font-medium">
-                                    {replyUser.name}
-                                  </h5>
-                                  {(replyUser.role === "admin" || replyUser.role === "teacher") && (
-                                    <span className="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-200">
-                                      Instructor
-                                    </span>
-                                  )}
-                                </div>
-                                <p className="text-sm text-gray-500 dark:text-gray-400">
-                                  {formatDate(reply.createdAt)}
-                                </p>
-                                <p className={`mt-1 ${theme === "dark" ? "text-gray-100" : "text-gray-600"}`}>
-                                  {reply.reply || reply.comment}
-                                </p>
+                      {review.commentReplies.map((reply: any) => (
+                        <div
+                          key={reply._id || reply.createdAt}
+                          className={`p-4 rounded-lg ${theme === "dark" ? "bg-gray-700" : "bg-gray-50"}`}
+                        >
+                          <div className="flex items-start gap-3">
+                            <Image
+                              src={reply.user?.avatar?.url || avatarIcon}
+                              alt={reply.user?.name || "User"}
+                              width={32}
+                              height={32}
+                              className="w-8 h-8 rounded-full"
+                            />
+                            <div>
+                              <div className="flex items-center">
+                                <h5 className="font-medium">
+                                  {reply.user?.name || "Anonymous"}
+                                </h5>
+                                {(reply.user?.role === "admin" || reply.user?.role === "teacher") && (
+                                  <span className="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-200">
+                                    Instructor
+                                  </span>
+                                )}
                               </div>
+                              <p className="text-sm text-gray-500 dark:text-gray-400">
+                                {formatDate(reply.createdAt)}
+                              </p>
+                              <p className={`mt-1 ${theme === "dark" ? "text-gray-100" : "text-gray-600"}`}>
+                                {reply.reply}
+                              </p>
                             </div>
                           </div>
-                        );
-                      })}
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -410,9 +391,7 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
             </div>
           ))
         ) : (
-          <div
-            className={`text-center py-8 rounded-lg ${theme === "dark" ? "bg-gray-800" : "bg-gray-50"}`}
-          >
+          <div className={`text-center py-8 rounded-lg ${theme === "dark" ? "bg-gray-800" : "bg-gray-50"}`}>
             <p className="text-gray-500 dark:text-gray-400">
               No reviews yet. Be the first to review this course!
             </p>
