@@ -337,43 +337,45 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
                     )}
                   </button>
 
-                  {expandedReviews[review._id] && (
+{expandedReviews[review._id] && (
                     <div className="space-y-4 mt-2">
-                      {review.commentReplies.map((reply: any) => (
-                        <div
-                          key={reply._id || reply.createdAt} // Fallback key
-                          className={`p-4 rounded-lg ${theme === "dark" ? "bg-gray-700" : "bg-gray-50"}`}
-                        >
-                          <div className="flex items-start gap-3">
-                            <Image
-                              src={reply.user?.avatar?.url || avatarIcon}
-                              alt={reply.user?.name || "User"}
-                              width={32}
-                              height={32}
-                              className="w-8 h-8 rounded-full"
-                            />
-                            <div>
-                              <div className="flex items-center">
-                                <h5 className="font-medium">
-                                  {reply.user?.name || "Anonymous User"}
-                                </h5>
-                                {(reply.user?.role === "admin" ||
-                                  reply.user?.role === "teacher") && (
+                      {review.commentReplies.map((reply: any) => {
+                        const replyUser = getReplyUser(reply);
+                        return (
+                          <div
+                            key={reply._id || reply.createdAt}
+                            className={`p-4 rounded-lg ${theme === "dark" ? "bg-gray-700" : "bg-gray-50"}`}
+                          >
+                            <div className="flex items-start gap-3">
+                              <Image
+                                src={replyUser.avatar?.url || avatarIcon}
+                                alt={replyUser.name}
+                                width={32}
+                                height={32}
+                                className="w-8 h-8 rounded-full"
+                              />
+                              <div>
+                                <div className="flex items-center">
+                                  <h5 className="font-medium">
+                                    {replyUser.name}
+                                  </h5>
+                                  {(replyUser.role === "admin" || replyUser.role === "teacher") && (
                                     <span className="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-200">
                                       Instructor
                                     </span>
                                   )}
+                                </div>
+                                <p className="text-sm text-gray-500 dark:text-gray-400">
+                                  {formatDate(reply.createdAt)}
+                                </p>
+                                <p className={`mt-1 ${theme === "dark" ? "text-gray-100" : "text-gray-600"}`}>
+                                  {reply.reply || reply.comment}
+                                </p>
                               </div>
-                              <p className="text-sm text-gray-500 dark:text-gray-400">
-                                {formatDate(reply.createdAt)}
-                              </p>
-                              <p className={`mt-1 ${theme === "dark" ? "text-gray-100" : "text-gray-600"}`}>
-                                {reply.reply}
-                              </p>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   )}
                 </div>

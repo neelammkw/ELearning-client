@@ -1,4 +1,3 @@
-// DashboardHeader.tsx
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
@@ -22,7 +21,7 @@ const DashboardHero: React.FC<Props> = ({ title = "Dashboard" }) => {
   const open = Boolean(anchorEl);
 
   const { data, refetch } = useGetNotificationsQuery(undefined, {
-    pollingInterval: 60000, // refetch every 60 seconds
+    pollingInterval: 60000,
   });
   const [updateNotificationStatus] = useUpdateNotificationStatusMutation();
 
@@ -48,12 +47,12 @@ const DashboardHero: React.FC<Props> = ({ title = "Dashboard" }) => {
     data?.notifications?.filter((n: any) => n.status === "unread").length || 0;
 
   return (
-    <div className="w-full px-6 py-4 bg-gradient-to-r from-gray-800 to-indigo-800 text-white rounded-xl shadow-md mb-6 flex items-center justify-between">
+    <div className="w-full px-4 sm:px-6 py-4 bg-gradient-to-r from-gray-800 to-indigo-800 text-white rounded-xl shadow-md mb-6 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0">
       {/* Left Side: Title and Greeting */}
-      <div>
-        <h1 className="text-2xl font-bold">{title}</h1>
+      <div className="w-full sm:w-auto text-center sm:text-left">
+        <h1 className="text-xl sm:text-2xl font-bold">{title}</h1>
         {user && (
-          <p className="text-sm text-white/80 mt-1">
+          <p className="text-xs sm:text-sm text-white/80 mt-1">
             Welcome back,{" "}
             <span className="font-medium">{user.name || "Admin"}</span> 👋
           </p>
@@ -61,13 +60,13 @@ const DashboardHero: React.FC<Props> = ({ title = "Dashboard" }) => {
       </div>
 
       {/* Right Side: Avatar, ThemeSwitcher, Notification */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3 sm:gap-4">
         {/* Avatar */}
         <Image
           src={user?.avatar?.url || avatarIcon}
           alt="Profile"
-          width={40}
-          height={40}
+          width={36}
+          height={36}
           className="rounded-full border border-white shadow"
         />
 
@@ -81,13 +80,14 @@ const DashboardHero: React.FC<Props> = ({ title = "Dashboard" }) => {
           aria-controls={open ? "notifications-menu" : undefined}
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
+          sx={{ padding: '8px' }} // Smaller padding on mobile
         >
           <Badge badgeContent={unreadNotifications} color="error">
-            <NotificationsNoneIcon sx={{ color: "white" }} />
+            <NotificationsNoneIcon sx={{ color: "white", fontSize: '1.25rem' }} />
           </Badge>
         </IconButton>
 
-        {/* Notification Menu */}
+        {/* Notification Menu - Responsive */}
         <Menu
           anchorEl={anchorEl}
           id="notifications-menu"
@@ -100,13 +100,18 @@ const DashboardHero: React.FC<Props> = ({ title = "Dashboard" }) => {
               overflow: "visible",
               filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
               mt: 1.5,
-              width: 350,
+              width: { xs: '90vw', sm: 350 }, // Full width on mobile
+              maxWidth: { xs: 'calc(100vw - 32px)', sm: 350 }, // Account for padding
               maxHeight: 400,
               overflowY: "auto",
+              left: { xs: '16px !important', sm: 'auto' }, // Position on mobile
+              right: { xs: '16px !important', sm: 'auto' }, // Position on mobile
+              transformOrigin: { xs: 'top center', sm: 'top right' } // Adjust for mobile
             },
           }}
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+          disableScrollLock={true} // Prevent body scroll lock on mobile
         >
           {data?.notifications?.length ? (
             data.notifications.map((notification: any) => (
@@ -117,16 +122,18 @@ const DashboardHero: React.FC<Props> = ({ title = "Dashboard" }) => {
                   borderBottom: "1px solid #eee",
                   backgroundColor:
                     notification.status === "unread" ? "#f5f5f5" : "white",
+                  whiteSpace: 'normal', // Allow text wrapping
+                  py: 1.5,
                 }}
               >
-                <div className="p-2">
-                  <Typography variant="subtitle1">
+                <div className="p-1 sm:p-2">
+                  <Typography variant="subtitle1" sx={{ fontSize: '0.875rem', sm: '1rem' }}>
                     {notification.title}
                   </Typography>
-                  <Typography variant="body2">
+                  <Typography variant="body2" sx={{ fontSize: '0.75rem', sm: '0.875rem' }}>
                     {notification.message}
                   </Typography>
-                  <Typography variant="caption" color="text.secondary">
+                  <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.625rem', sm: '0.75rem' }}>
                     {new Date(notification.createdAt).toLocaleString()}
                   </Typography>
                 </div>

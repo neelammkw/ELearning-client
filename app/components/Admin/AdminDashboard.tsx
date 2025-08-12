@@ -96,7 +96,7 @@ const AdminDashboard = () => {
           const orderDate = new Date(order.createdAt);
           return (
             orderDate.toLocaleString("default", { month: "short" }) ===
-              monthName && orderDate.getFullYear().toString() === monthYear
+            monthName && orderDate.getFullYear().toString() === monthYear
           );
         })
         .reduce((sum: number, order: any) => {
@@ -124,7 +124,7 @@ const AdminDashboard = () => {
           const userDate = new Date(user.createdAt);
           return (
             userDate.toLocaleString("default", { month: "short" }) ===
-              monthName && userDate.getFullYear().toString() === monthYear
+            monthName && userDate.getFullYear().toString() === monthYear
           );
         })
         .reduce((sum: number, user: any) => {
@@ -176,8 +176,8 @@ const AdminDashboard = () => {
       userGrowth:
         userMonths.length >= 2
           ? ((userMonths[11]?.count - (userMonths[10]?.count || 0)) /
-              (userMonths[10]?.count || 1)) *
-            100
+            (userMonths[10]?.count || 1)) *
+          100
           : 0,
       totalOrders: orderMonths.reduce(
         (sum: number, month: any) => sum + (month.count || 0),
@@ -372,7 +372,7 @@ const AdminDashboard = () => {
         spacing={isMobile ? 2 : 3}
         sx={{
           mb: 4,
-          width: "100%",
+          width: '100%',
           marginLeft: 0,
           marginRight: 0,
         }}
@@ -382,43 +382,50 @@ const AdminDashboard = () => {
           xs={12}
           md={6}
           sx={{
-            paddingLeft: "0 !important",
-            paddingRight: isMediumScreen ? "0 !important" : "16px !important",
+            paddingLeft: '0 !important',
+            paddingRight: isMediumScreen ? '0 !important' : '8px !important',
+            display: 'flex',
+            justifyContent: 'center'
           }}
         >
           <Card
             sx={{
-              bgcolor: isDark ? "#2a2a40" : "#ffffff",
+              bgcolor: isDark ? '#2a2a40' : '#ffffff',
               p: isMobile ? 1 : 2,
               borderRadius: 3,
               boxShadow: isDark
-                ? "0 4px 20px rgba(0,0,0,0.2)"
-                : "0 4px 20px rgba(0,0,0,0.05)",
-              width: "100%",
+                ? '0 4px 20px rgba(0,0,0,0.2)'
+                : '0 4px 20px rgba(0,0,0,0.05)',
+              width: '100%',
+              maxWidth: '100%',
             }}
           >
             <Typography
-              variant={isMobile ? "subtitle1" : "h6"}
+              variant={isMobile ? 'subtitle1' : 'h6'}
               gutterBottom
               sx={{
                 fontWeight: 600,
-                color: isDark ? "#fff" : "inherit",
+                color: isDark ? '#fff' : 'inherit',
               }}
             >
               User Growth (Last 12 Months)
             </Typography>
-            <div style={{ height: isMobile ? 250 : 300 }}>
+            <div style={{
+              height: isMobile ? 250 : 300,
+              width: '100%',
+              minWidth: '100%'
+            }}>
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={formatUserData()}>
                   <CartesianGrid
                     strokeDasharray="3 3"
-                    stroke={isDark ? "#555" : "#eee"}
+                    stroke={isDark ? '#555' : '#eee'}
                   />
                   <XAxis
                     dataKey="name"
-                    tick={{ fill: isDark ? "#fff" : "#666" }}
+                    tick={{ fill: isDark ? '#fff' : '#666' }}
                   />
-                  <YAxis tick={{ fill: isDark ? "#fff" : "#666" }} />
+                  <YAxis tick={{ fill: isDark ? '#fff' : '#666' }} />
                   <Tooltip content={<CustomTooltip />} />
                   <Area
                     type="monotone"
@@ -438,53 +445,60 @@ const AdminDashboard = () => {
           xs={12}
           md={6}
           sx={{
-            paddingLeft: isMediumScreen ? "0 !important" : "16px !important",
-            paddingRight: "0 !important",
+            paddingLeft: isMediumScreen ? '0 !important' : '8px !important',
+            paddingRight: '0 !important',
+            display: 'flex',
+            justifyContent: 'center'
           }}
         >
           <Card
             sx={{
-              bgcolor: isDark ? "#2a2a40" : "#ffffff",
+              bgcolor: isDark ? '#2a2a40' : '#ffffff',
               p: isMobile ? 1 : 2,
               borderRadius: 3,
               boxShadow: isDark
-                ? "0 4px 20px rgba(0,0,0,0.2)"
-                : "0 4px 20px rgba(0,0,0,0.05)",
-              width: "100%",
+                ? '0 4px 20px rgba(0,0,0,0.2)'
+                : '0 4px 20px rgba(0,0,0,0.05)',
+              width: '100%',
+              maxWidth: '100%',
             }}
           >
             <Typography
-              variant={isMobile ? "subtitle1" : "h6"}
+              variant={isMobile ? 'subtitle1' : 'h6'}
               gutterBottom
               sx={{
                 fontWeight: 600,
-                color: isDark ? "#fff" : "inherit",
+                color: isDark ? '#fff' : 'inherit',
               }}
             >
               Orders & Revenue (Last 12 Months)
             </Typography>
-            <div style={{ height: isMobile ? 250 : 300 }}>
+            <div style={{
+              height: isMobile ? 250 : 300,
+              width: '100%',
+              minWidth: '100%'
+            }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={formatOrderData()}>
                   <CartesianGrid
                     strokeDasharray="3 3"
-                    stroke={isDark ? "#555" : "#eee"}
+                    stroke={isDark ? '#555' : '#eee'}
                   />
                   <XAxis
                     dataKey="name"
-                    tick={{ fill: isDark ? "#fff" : "#666" }}
+                    tick={{ fill: isDark ? '#fff' : '#666' }}
                   />
                   <YAxis
                     yAxisId="left"
                     orientation="left"
                     stroke="#8884d8"
-                    tick={{ fill: isDark ? "#fff" : "#666" }}
+                    tick={{ fill: isDark ? '#fff' : '#666' }}
                   />
                   <YAxis
                     yAxisId="right"
                     orientation="right"
                     stroke="#82ca9d"
-                    tick={{ fill: isDark ? "#fff" : "#666" }}
+                    tick={{ fill: isDark ? '#fff' : '#666' }}
                   />
                   <Tooltip content={<CustomTooltip />} />
                   <Legend />
@@ -506,7 +520,6 @@ const AdminDashboard = () => {
           </Card>
         </Grid>
       </Grid>
-
       {/* Tables Section - Side by side on desktop */}
       <Grid
         container

@@ -266,16 +266,16 @@ const CourseDetail = ({ id }: Props) => {
               {/* Course Header with Discount Badge */}
 
               <div className="lg:col-span-2">
-                <motion.div variants={itemVariants} className="mb-8">
+                <motion.div variants={itemVariants} className="mb-4 md:mb-8">
                   <h1
-                    className={`text-3xl 800px:text-4xl font-bold mb-4 ${theme === "dark" ? "text-gray-400" : "text-black"}`}
+                    className={`text-3xl 800px:text-4xl font-bold mb-2 md:mb-4 ${theme === "dark" ? "text-gray-400" : "text-black"}`}
                   >
                     {course.name}
                   </h1>
 
                   {/* Demo Video Player */}
                   {course.demoUrl?.url && (
-                    <div className="mb-6">
+                    <div className="mb-4 md:mb-6">
                       <div className="h-[250px] md:w-[500px] mx-auto mb-4 rounded-lg overflow-hidden">
                         <CoursePlayer
                           videoUrl={course.demoUrl.url}
@@ -484,7 +484,7 @@ const CourseDetail = ({ id }: Props) => {
                       30-Day Money-Back Guarantee
                     </div>
 
-                    <div className={`space-y-3 text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
+                    <div className={`space-y-3 text-sm ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
                       <div className="flex items-center gap-3">
                         <FiBarChart2 className="text-blue-500" />
                         <span>
@@ -522,7 +522,7 @@ const CourseDetail = ({ id }: Props) => {
                     </div>
 
                     {course.prerequisites?.length > 0 && (
-                      <div className="mt-6">
+                      <div className={`mt-6 {theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
                         <h4 className="font-bold mb-2 dark:text-white">
                           Prerequisites
                         </h4>
