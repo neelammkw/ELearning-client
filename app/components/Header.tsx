@@ -227,7 +227,7 @@ const Header: FC<HeaderProps> = ({
         >
           <div
             className={`
-  w-[50%] h-[70%] fixed z-[9999999]
+  w-[50%] h-[75%] fixed z-[9999999]
   ${theme === "dark" ? "bg-gray-900/40" : "bg-blue-300/40"} 
   top-0 right-0 shadow-xl transition-transform duration-300
   ${openSidebar ? "translate-x-0" : "translate-x-full"}

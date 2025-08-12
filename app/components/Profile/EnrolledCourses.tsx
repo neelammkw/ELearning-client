@@ -7,14 +7,16 @@ import { useTheme } from "next-themes";
 
 const EnrolledCourses: FC = () => {
   const { theme } = useTheme();
-  const { data: response, isLoading, isError } = useGetUserCoursesQuery({});
+  const { data, error, isLoading } = useGetUserCoursesQuery(undefined, {
+  onError: (err) => {
+    console.error('[Component] Course fetch error:', err);
+  },
+  onSuccess: (data) => {
+    console.log('[Component] Course fetch success:', data);
+  }
+});
 
-  // Debugging logs
-  console.log("API Response:", response);
-  console.log("Loading state:", isLoading);
-  console.log("Error state:", isError);
-
-  const courses = response?.courses || response || []; 
+  const courses = data || []; 
   console.log('Processed courses:', courses);
 
   console.log("Courses data:", courses);
@@ -24,17 +26,6 @@ const EnrolledCourses: FC = () => {
     return <Loader />;
   }
 
-  if (isError) {
-    console.error("Error occurred while fetching courses");
-    return (
-      <div
-        className={`w-full text-center py-12 ${theme === "dark" ? "text-gray-200" : "text-gray-800"}`}
-      >
-        <p className="text-lg">Error loading your courses.</p>
-        <p className="mt-2">Please try again later.</p>
-      </div>
-    );
-  }
 
   console.log("Rendering courses:", courses);
 

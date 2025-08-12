@@ -120,10 +120,12 @@ const CourseData: FC<Props> = ({
   return (
     <div className="w-[90%] m-auto mt-10">
       <div
-        className={`backdrop-blur-sm bg-opacity-50 ${
-          isDark ? "bg-slate-800 text-white" : "bg-slate-100 text-black"
-        } rounded-lg shadow-lg p-4 mb-6`}
+        className={`backdrop-blur-sm bg-opacity-50 ${isDark ? "bg-slate-800 text-white" : "bg-slate-100 text-black"
+          } rounded-lg shadow-lg p-4 mb-6`}
       >
+        <h3>
+          Course Options
+        </h3>
         {/* Benefits Section */}
         <div className="mb-8">
           <label className={`${styles.label} text-[20px] block mb-4`}>
@@ -136,9 +138,8 @@ const CourseData: FC<Props> = ({
                 type="text"
                 name="Benefit"
                 placeholder="You will be able to build a full stack LMS Platform..."
-                className={`${styles.input} flex-1 ${
-                  isDark ? "bg-[#1e1e1e] text-white placeholder-gray-400" : ""
-                } ${errors.benefits[index] ? "border-red-500" : ""}`}
+                className={`${styles.input} flex-1 ${isDark ? "bg-[#1e1e1e] text-white placeholder-gray-400" : ""
+                  } ${errors.benefits[index] ? "border-red-500" : ""}`}
                 value={benefit.title}
                 onChange={(e) => handleBenefitChange(index, e.target.value)}
               />
@@ -146,9 +147,8 @@ const CourseData: FC<Props> = ({
                 <button
                   type="button"
                   onClick={() => handleRemoveBenefit(index)}
-                  className={`p-1 rounded-full ${
-                    isDark ? "hover:bg-gray-700" : "hover:bg-gray-200"
-                  }`}
+                  className={`p-1 rounded-full ${isDark ? "hover:bg-gray-700" : "hover:bg-gray-200"
+                    }`}
                 >
                   <RemoveCircleIcon
                     className={`${isDark ? "text-red-400" : "text-red-500"}`}
@@ -161,11 +161,10 @@ const CourseData: FC<Props> = ({
           <button
             type="button"
             onClick={handleAddBenefit}
-            className={`flex items-center gap-1 mt-2 ${
-              isDark
-                ? "text-blue-400 hover:text-blue-300"
-                : "text-blue-600 hover:text-blue-800"
-            }`}
+            className={`flex items-center gap-1 mt-2 ${isDark
+              ? "text-blue-400 hover:text-blue-300"
+              : "text-blue-600 hover:text-blue-800"
+              }`}
           >
             <AddCircleIcon />
             <span>Add Benefit</span>
@@ -184,9 +183,8 @@ const CourseData: FC<Props> = ({
                 type="text"
                 name="Prerequisite"
                 placeholder="Basic knowledge of HTML, CSS, JavaScript..."
-                className={`${styles.input} flex-1 ${
-                  isDark ? "bg-[#1e1e1e] text-white placeholder-gray-400" : ""
-                } ${errors.prerequisites[index] ? "border-red-500" : ""}`}
+                className={`${styles.input} flex-1 ${isDark ? "bg-[#1e1e1e] text-white placeholder-gray-400" : ""
+                  } ${errors.prerequisites[index] ? "border-red-500" : ""}`}
                 value={prereq.title}
                 onChange={(e) =>
                   handlePrerequisiteChange(index, e.target.value)
@@ -196,9 +194,8 @@ const CourseData: FC<Props> = ({
                 <button
                   type="button"
                   onClick={() => handleRemovePrerequisite(index)}
-                  className={`p-1 rounded-full ${
-                    isDark ? "hover:bg-gray-700" : "hover:bg-gray-200"
-                  }`}
+                  className={`p-1 rounded-full ${isDark ? "hover:bg-gray-700" : "hover:bg-gray-200"
+                    }`}
                 >
                   <RemoveCircleIcon
                     className={`${isDark ? "text-red-400" : "text-red-500"}`}
@@ -211,11 +208,10 @@ const CourseData: FC<Props> = ({
           <button
             type="button"
             onClick={handleAddPrerequisite}
-            className={`flex items-center gap-1 mt-2 ${
-              isDark
-                ? "text-blue-400 hover:text-blue-300"
-                : "text-blue-600 hover:text-blue-800"
-            }`}
+            className={`flex items-center gap-1 mt-2 ${isDark
+              ? "text-blue-400 hover:text-blue-300"
+              : "text-blue-600 hover:text-blue-800"
+              }`}
           >
             <AddCircleIcon />
             <span>Add Prerequisite</span>
@@ -226,22 +222,20 @@ const CourseData: FC<Props> = ({
         <div className="flex justify-between items-center mt-8 pt-4 border-t border-gray-300 dark:border-gray-600">
           <button
             type="button"
-            className={`px-4 py-2 rounded-md ${
-              isDark
-                ? "bg-gray-700 text-white hover:bg-gray-600"
-                : "bg-gray-500 text-white hover:bg-gray-600"
-            }`}
+            className={`px-4 py-2 rounded-md ${isDark
+              ? "bg-gray-700 text-white hover:bg-gray-600"
+              : "bg-gray-500 text-white hover:bg-gray-600"
+              }`}
             onClick={() => setActive(active - 1)}
           >
             Previous
           </button>
           <button
             type="button"
-            className={`px-4 py-2 rounded-md ${
-              isDark
-                ? "bg-blue-500 text-white hover:bg-blue-600"
-                : "bg-blue-600 text-white hover:bg-blue-700"
-            }`}
+            className={`px-4 py-2 rounded-md ${isDark
+              ? "bg-blue-500 text-white hover:bg-blue-600"
+              : "bg-blue-600 text-white hover:bg-blue-700"
+              }`}
             onClick={handleNext}
           >
             Next

@@ -5,11 +5,11 @@ interface IVideo {
   title: string;
   description: string;
   videoUrl?:
-    | string
-    | {
-        public_id: string;
-        url: string;
-      };
+  | string
+  | {
+    public_id: string;
+    url: string;
+  };
   videoLength: number;
   links: { title: string; url: string }[];
   suggestion?: string;
@@ -91,9 +91,9 @@ const courseApi = apiSlice.injectEndpoints({
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ _id }) => ({ type: "Courses" as const, _id })),
-              "Courses",
-            ]
+            ...result.map(({ _id }) => ({ type: "Courses" as const, _id })),
+            "Courses",
+          ]
           : ["Courses"],
     }),
 
@@ -156,6 +156,15 @@ const courseApi = apiSlice.injectEndpoints({
         success: boolean;
         courses: ICourse[];
       }) => {
+        if (!response) {
+          console.warn('Response is undefined or null');
+          console.groupEnd();
+          return [];
+        }
+        const courses = response.courses || [];
+        console.log('Processed courses data:', courses);
+
+
         return response.courses || [];
       },
       providesTags: ["UserCourses"],
@@ -175,7 +184,6 @@ const courseApi = apiSlice.injectEndpoints({
       }),
       providesTags: ["EnrollmentStatus"],
       transformErrorResponse: (response) => {
-        console.log("Enrollment check error response:", response);
         return response;
       },
     }),

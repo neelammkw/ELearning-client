@@ -134,6 +134,9 @@ const CourseInformation: React.FC<Props> = ({
       <div
         className={`${isDark ? "text-white" : "text-black"} backdrop-blur-sm bg-opacity-50 ${isDark ? "bg-slate-800" : "bg-slate-100"} rounded-lg shadow-lg p-4 mb-6`}
       >
+        <h3>
+          Course Information
+        </h3>
         <form onSubmit={handleSubmit}>
           {/* Course Name */}
           <div className={divStyle}>

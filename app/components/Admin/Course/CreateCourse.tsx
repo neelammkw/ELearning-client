@@ -162,10 +162,6 @@ const CreateCourse = () => {
     <div
       className={`w-full flex flex-col lg:flex-row min-h-screen rounded-lg ${isDark ? "bg-gray-700 text-white" : "text-black"}`}
     >
-      {/* Sidebar - will appear above content on mobile */}
-      <div className="w-full lg:w-[20%]  lg:right-0 lg:top-0 lg:h-full lg:mt-[60px] p-2 lg:p-0 bg-transparent lg:bg-inherit">
-        <CourseOptions active={active} setActive={setActive} />
-      </div>
       {/* Main content area - full width on mobile */}
       <div className="w-full lg:w-[80%] p-4">
         {active === 0 && (
@@ -229,7 +225,10 @@ const CreateCourse = () => {
         )}
       </div>
 
-
+      {/* Sidebar - will appear below content on mobile */}
+      <div className="w-full lg:w-[20%]  lg:right-0 lg:top-0 lg:h-full lg:mt-[60px] p-2 lg:p-0 bg-transparent lg:bg-inherit">
+        <CourseOptions active={active} setActive={setActive} />
+      </div>
     </div>
   );
 };

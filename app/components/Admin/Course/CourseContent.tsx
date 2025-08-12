@@ -228,6 +228,7 @@ const CourseContent: FC<Props> = ({
 
   return (
     <div className="w-[90%] m-auto mt-10 mb-10">
+      
       <form onSubmit={handleCourseSubmit}>
         {courseContentData.map((item: any, index: number) => {
           const showSectionInput =
@@ -240,7 +241,9 @@ const CourseContent: FC<Props> = ({
               className={`backdrop-blur-sm bg-opacity-50 ${
                 isDark ? "bg-slate-800" : "bg-slate-100"
               } rounded-lg shadow-lg p-4 mb-6`}
-            >
+            > <h3>
+          Course Content
+        </h3>
               {showSectionInput && (
                 <div className="flex items-center mb-3">
                   <input

@@ -138,6 +138,9 @@ const CoursePreview: React.FC<Props> = ({
     <div
       className={`w-full min-h-screen ${isDark ? "bg-gray-900" : "bg-gray-50"}`}
     >
+      <h3>
+          Course Preview
+        </h3>
       <div className="w-[90%] max-w-7xl mx-auto py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
