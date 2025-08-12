@@ -4,35 +4,47 @@ import { useGetUserCoursesQuery } from "@/redux/features/courses/coursesApi";
 import Loader from "../Loader/Loader";
 import CourseCard from "./CourseCard";
 import { useTheme } from "next-themes";
+import { useSelector } from "react-redux";
 
 const EnrolledCourses: FC = () => {
   const { theme } = useTheme();
-  const { data, error, isLoading } = useGetUserCoursesQuery(undefined, {
-  onError: (err) => {
-    console.error('[Component] Course fetch error:', err);
-  },
-  onSuccess: (data) => {
-    console.log('[Component] Course fetch success:', data);
-  }
-});
+  const { user } = useSelector((state: any) => state.auth);
+  const { data, isLoading, isError, error } = useGetUserCoursesQuery(user?._id, {
+    skip: !user?._id, // Skip if no user ID
+    onError: (err) => {
+      console.error('[Component] Course fetch error:', err);
+    },
+    onSuccess: (data) => {
+      console.log('[Component] Course fetch success:', data);
+    }
+  });
 
-  const courses = data || []; 
-  console.log('Processed courses:', courses);
-
-  console.log("Courses data:", courses);
+  const courses = data || [];
 
   if (isLoading) {
-    console.log("Currently loading...");
+    console.log("Currently loading courses...");
     return <Loader />;
   }
 
+  if (isError) {
+    console.error('Error occurred while fetching courses:', error);
+    return (
+      <div className={`w-full text-center py-12 ${theme === "dark" ? "text-gray-200" : "text-gray-800"}`}>
+        <p className="text-lg">Error loading your courses.</p>
+        <p className="mt-2">Please try again later.</p>
+        {error && (
+          <p className="text-sm mt-2 text-red-500">
+            Error: {error.message || 'Unknown error'}
+          </p>
+        )}
+      </div>
+    );
+  }
 
-  console.log("Rendering courses:", courses);
+  console.log('Rendering courses:', courses);
 
   return (
-    <div
-      className={`w-full ${theme === "dark" ? "text-gray-200" : "text-gray-800"}`}
-    >
+    <div className={`w-full ${theme === "dark" ? "text-gray-200" : "text-gray-800"}`}>
       <div className="space-y-6">
         <h2 className="text-2xl font-bold mb-6">Your Enrolled Courses</h2>
 
@@ -44,24 +56,21 @@ const EnrolledCourses: FC = () => {
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {courses.map((course: any) => {
-                console.log("Rendering course:", course._id, course.name);
-                return (
-                  <div key={course._id} className="relative">
-                    <CourseCard
-                      course={course}
-                      isProfile={true}
-                      isEnrolled={true}
+              {courses.map((course: any) => (
+                <div key={course._id} className="relative">
+                  <CourseCard
+                    course={course}
+                    isProfile={true}
+                    isEnrolled={true}
+                  />
+                  <div className="absolute top-4 left-4 right-4 bg-gray-200 dark:bg-gray-700 rounded-full h-2 z-10">
+                    <div
+                      className="bg-blue-600 h-2 rounded-full"
+                      style={{ width: `${course.progress || 0}%` }}
                     />
-                    <div className="absolute top-4 left-4 right-4 bg-gray-200 dark:bg-gray-700 rounded-full h-2 z-10">
-                      <div
-                        className="bg-blue-600 h-2 rounded-full"
-                        style={{ width: `${course.progress || 0}%` }}
-                      ></div>
-                    </div>
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
 
             <div className="mt-8">
@@ -74,7 +83,7 @@ const EnrolledCourses: FC = () => {
                   >
                     <div className="flex justify-between items-center">
                       <h4 className="font-medium">{course.name}</h4>
-                      <span className="text-sm text-gray-800 dark:text-gray-800">
+                      <span className="text-sm">
                         {course.progress || 0}% complete
                       </span>
                     </div>
@@ -82,7 +91,7 @@ const EnrolledCourses: FC = () => {
                       <div
                         className="bg-blue-600 h-2.5 rounded-full"
                         style={{ width: `${course.progress || 0}%` }}
-                      ></div>
+                      />
                     </div>
                   </div>
                 ))}
