@@ -230,7 +230,7 @@ const Header: FC<HeaderProps> = ({
         >
           <div
             className={`
-  w-[50%] h-[70%] fixed z-[9999999]
+  w-[50%] h-[60%] fixed z-[9999999]
   ${theme === "dark" ? "bg-gray-900/40" : "bg-blue-300/40"} 
   top-0 right-0 shadow-xl transition-transform duration-300
   ${openSidebar ? "translate-x-0" : "translate-x-full"}
@@ -292,9 +292,9 @@ const Header: FC<HeaderProps> = ({
                         height={28}
                         className="rounded-full mr-3"
                       />
-                      <div className={`${theme === "dark" ? "border-gray-700" : "border-gray-200"}`}>
+                      <div className={`${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
                         <p className="font-medium text-sm">{user.name}</p>
-                        <p className="text-xs text-gray-500">View profile</p>
+                        <p className="text-xs ">View profile</p>
                       </div>
                     </Link>
 
@@ -305,12 +305,12 @@ const Header: FC<HeaderProps> = ({
                       }}
                       className={`flex items-center w-full px-3 py-2 rounded-lg text-left ${
                         theme === "dark"
-                          ? "hover:bg-gray-300"
+                          ? "hover:bg-gray-300 "
                           : "hover:bg-gray-500"
                       }`}
                     >
                       <HiOutlineLogout className="mr-3 text-base" />
-                      <span className="text-sm">Logout</span>
+                      <span className={`text-sm ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>Logout</span>
                     </button>
                   </>
                 ) : (

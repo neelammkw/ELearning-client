@@ -2,19 +2,28 @@
 import React, { FC } from "react";
 import { useGetUserCoursesQuery } from "@/redux/features/courses/coursesApi";
 import Loader from "../Loader/Loader";
-import CourseCard from "./CourseCard"; // Make sure this path is correct
+import CourseCard from "./CourseCard";
 import { useTheme } from "next-themes";
 
 const EnrolledCourses: FC = () => {
   const { theme } = useTheme();
   const { data: response, isLoading, isError } = useGetUserCoursesQuery({});
-  const courses = response || []; // Access the courses array from response
+
+  // Debugging logs
+  console.log("API Response:", response);
+  console.log("Loading state:", isLoading);
+  console.log("Error state:", isError);
+
+  const courses = response?.courses || []; // Adjusted to match potential response structure
+  console.log("Courses data:", courses);
 
   if (isLoading) {
+    console.log("Currently loading...");
     return <Loader />;
   }
 
   if (isError) {
+    console.error("Error occurred while fetching courses");
     return (
       <div
         className={`w-full text-center py-12 ${theme === "dark" ? "text-gray-200" : "text-gray-800"}`}
@@ -24,6 +33,8 @@ const EnrolledCourses: FC = () => {
       </div>
     );
   }
+
+  console.log("Rendering courses:", courses);
 
   return (
     <div
@@ -40,30 +51,32 @@ const EnrolledCourses: FC = () => {
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {courses.map((course: ICourse) => (
-                <div key={course._id} className="relative">
-                  <CourseCard
-                    course={course}
-                    isProfile={true}
-                    isEnrolled={true}
-                  />
-                  {/* Progress indicator overlay */}
-                  <div className="absolute top-4 left-4 right-4 bg-gray-200 dark:bg-gray-700 rounded-full h-2 z-10">
-                    <div
-                      className="bg-blue-600 h-2 rounded-full"
-                      style={{ width: `${course.progress || 0}%` }}
-                    ></div>
+              {courses.map((course: any) => {
+                console.log("Rendering course:", course._id, course.name);
+                return (
+                  <div key={course._id} className="relative">
+                    <CourseCard
+                      course={course}
+                      isProfile={true}
+                      isEnrolled={true}
+                    />
+                    <div className="absolute top-4 left-4 right-4 bg-gray-200 dark:bg-gray-700 rounded-full h-2 z-10">
+                      <div
+                        className="bg-blue-600 h-2 rounded-full"
+                        style={{ width: `${course.progress || 0}%` }}
+                      ></div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
-            <div className="mt-8 ">
-              <h3 className="text-xl font-semibold mb-4 ">Learning Progress</h3>
-              <div className="space-y-4 text-gray-700">
-                {courses.map((course: ICourse) => (
+            <div className="mt-8">
+              <h3 className="text-xl font-semibold mb-4">Learning Progress</h3>
+              <div className="space-y-4">
+                {courses.map((course: any) => (
                   <div
-                    key={course._id}
+                    key={`progress-${course._id}`}
                     className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg"
                   >
                     <div className="flex justify-between items-center">

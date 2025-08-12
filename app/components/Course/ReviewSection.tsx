@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useTheme } from "next-themes";
 import { FaStar } from "react-icons/fa";
 import Image from "next/image";
@@ -57,14 +57,14 @@ const ReviewsSection = ({ course, user }: { course: any; user: any }) => {
     }));
   };
 
-  useEffect(() => {
-    console.log("Reviews data:", reviewsData);
-    if (reviewsData?.reviews) {
-      reviewsData.reviews.forEach(review => {
-        console.log(`Review ${review._id} replies:`, review.commentReplies);
-      });
-    }
-  }, [reviewsData]);
+  // useEffect(() => {
+  //   console.log("Reviews data:", reviewsData);
+  //   if (reviewsData?.reviews) {
+  //     reviewsData.reviews.forEach(review => {
+  //       console.log(`Review ${review._id} replies:`, review.commentReplies);
+  //     });
+  //   }
+  // }, [reviewsData]);
 
   const handleReviewSubmit = async () => {
     if (!reviewRating) {
