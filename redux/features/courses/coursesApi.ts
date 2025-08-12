@@ -148,25 +148,11 @@ const courseApi = apiSlice.injectEndpoints({
     }),
     getUserCourses: builder.query<ICourse[], void>({
       query: () => ({
-        url: "user/courses",
+        url: "user-courses",
         method: "GET",
         credentials: "include",
       }),
-      transformResponse: (response: {
-        success: boolean;
-        courses: ICourse[];
-      }) => {
-        if (!response) {
-          console.warn('Response is undefined or null');
-          console.groupEnd();
-          return [];
-        }
-        const courses = response.courses || [];
-        console.log('Processed courses data:', courses);
-
-
-        return response.courses || [];
-      },
+      
       providesTags: ["UserCourses"],
     }),
     checkCourseEnrollment: builder.query<
