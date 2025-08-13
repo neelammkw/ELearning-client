@@ -240,7 +240,7 @@ const AdminDashboard = () => {
     return null;
   };
 
- return (
+  return (
     <Box
       sx={{
         p: isMobile ? 2 : 3,
@@ -292,9 +292,16 @@ const AdminDashboard = () => {
             secondaryColor: isDark ? "#f9a8d4" : "#9d174d",
           },
         ].map((card, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
+
+          <Grid item xs={12} sm={6} md={6} key={index} sx={{
+            display: 'flex',
+          }}
+          >
             <Card
               sx={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
                 bgcolor: card.bgColor,
                 borderRadius: 2,
                 boxShadow: isDark
@@ -310,7 +317,7 @@ const AdminDashboard = () => {
                 },
               }}
             >
-              <CardContent sx={{ p: 2 }}>
+              <CardContent sx={{ p: 3, flex: 1 }}>
                 <Box
                   display="flex"
                   justifyContent="space-between"
@@ -369,9 +376,10 @@ const AdminDashboard = () => {
 
       {/* Charts Section - Side by Side */}
       <Grid container spacing={isTablet ? 2 : 3} sx={{ mb: 4 }}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} sx={{ display: 'flex' }}>
           <Card
             sx={{
+              flex: 1,
               bgcolor: isDark ? "#1e1e1e" : "#ffffff",
               borderRadius: 2,
               boxShadow: isDark
@@ -436,9 +444,10 @@ const AdminDashboard = () => {
           </Card>
         </Grid>
 
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} sx={{ display: 'flex' }}>
           <Card
             sx={{
+              flex:1,
               bgcolor: isDark ? "#1e1e1e" : "#ffffff",
               borderRadius: 2,
               boxShadow: isDark
