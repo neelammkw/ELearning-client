@@ -56,21 +56,21 @@ const CourseAnalytics = () => {
           {data?.courses?.last12Months?.length > 0 ? (
             <div className="max-w-7xl mx-auto">
               <h1
-                className={`${styles.title} text-center mb-8 ${theme === "dark" ? "text-white" : "text-black"}`}
+                className={`${styles.title} text-center mb-6 sm:mb-8 ${theme === "dark" ? "text-white" : "text-black"} text-2xl sm:text-3xl`}
               >
                 Course Analytics
               </h1>
 
               {/* Bar Chart Section */}
               <div
-                className={`p-6 rounded-lg shadow-lg mb-4 ${theme === "dark" ? "bg-[#1E293B]" : "bg-white"}`}
+                className={`p-4 sm:p-6 rounded-lg shadow-lg mb-6 sm:mb-8 ${theme === "dark" ? "bg-[#1E293B]" : "bg-white"}`}
               >
                 <h2
-                  className={`text-xl font-semibold mb-4 text-center ${theme === "dark" ? "text-white" : "text-black"}`}
+                  className={`text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-center ${theme === "dark" ? "text-white" : "text-black"}`}
                 >
                   Monthly Course Enrollment
                 </h2>
-                <div className="h-[400px]">
+                <div className="h-[300px] sm:h-[400px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                       data={formatMonthlyData()}

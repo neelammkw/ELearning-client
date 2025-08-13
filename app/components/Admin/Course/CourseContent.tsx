@@ -228,6 +228,7 @@ const CourseContent: FC<Props> = ({
   };
 
   return (
+    
     <div className="w-[90%] m-auto mt-10 mb-10">
       <div className="w-full mb-8">
         <motion.div

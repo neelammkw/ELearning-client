@@ -184,8 +184,7 @@ const InvoiceDetailsPage = ({ id }: Props) => {
                     xs: '1.5rem', 
                     sm: '2.125rem' 
                   },
-                  fontWeight: "bold",
-                  gutterBottom
+                  fontWeight: "bold"
                 }}
               >
                 Invoice #{invoice.id}

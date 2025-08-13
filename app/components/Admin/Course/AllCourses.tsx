@@ -12,6 +12,7 @@ import {
   CircularProgress,
   Typography,
   Tooltip,
+  useMediaQuery
 } from "@mui/material";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
 import { FiRefreshCw } from "react-icons/fi";
@@ -47,6 +48,7 @@ interface ICourse {
 
 const AllCourses = () => {
   const { theme } = useTheme();
+  const isMobile = useMediaQuery("(max-width:600px)");
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openForm, setOpenForm] = useState(false);
   const [selectedId, setSelectedId] = useState<GridRowId | null>(null);
@@ -261,17 +263,20 @@ const AllCourses = () => {
   }
 
   return (
-    <div className="mt-[20px] p-4">
-      <Box className="flex justify-between items-center mb-4">
+   <div className="mt-[20px] p-2 sm:p-4">
+      {/* Responsive Header Section */}
+      <Box className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
         <Typography
-          variant="h4"
+          variant={isMobile ? "h5" : "h4"}
           component="h1"
           fontWeight="bold"
           color={theme === "dark" ? "common.white" : "text.black"}
+          className="text-center sm:text-left"
         >
           Courses Management
         </Typography>
-        <div className="flex gap-2">
+        
+        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
           <Button
             variant="contained"
             color="primary"
@@ -281,24 +286,25 @@ const AllCourses = () => {
             }
             disabled={isRefreshing}
             sx={{ textTransform: "none" }}
+            size={isMobile ? "small" : "medium"}
+            fullWidth={isMobile}
           >
-            Refresh
+            {isMobile ? "Refresh" : "Refresh Courses"}
           </Button>
           <Button
             variant="contained"
             color="success"
-            onClick={() => {
-              router.push(`/admin/create-course`);
-            }}
+            onClick={() => router.push(`/admin/create-course`)}
             sx={{ textTransform: "none" }}
+            size={isMobile ? "small" : "medium"}
+            fullWidth={isMobile}
           >
-            Add New Course
+            {isMobile ? "Add Course" : "Add New Course"}
           </Button>
         </div>
       </Box>
-
       <Box
-        height="90vh"
+        height={isMobile ? "75vh" : "90vh"}
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
@@ -406,15 +412,21 @@ const AllCourses = () => {
           }}
           sx={{
             "& .MuiDataGrid-columnHeaders": {
-              height: "60px",
+              height: "50px", // Smaller header on mobile
             },
             "& .MuiDataGrid-cell": {
+              fontSize: isMobile ? "0.75rem" : "0.875rem", // Smaller text on mobile
+              padding: isMobile ? "4px" : "8px",
               color:
                 theme === "dark"
                   ? "rgba(255, 255, 255, 0.9)"
-                  : "rgba(0, 0, 0, 0.9)",
+                  : "rgba(0, 0, 0, 0.9)", // Less padding on mobile
+            },
+            "& .MuiDataGrid-columnHeaderTitle": {
+              fontSize: isMobile ? "0.75rem" : "0.875rem", // Smaller header text on mobile
             },
           }}
+
           slots={{
             noRowsOverlay: () => (
               <div className="flex flex-col items-center justify-center h-full">

@@ -109,12 +109,7 @@ const CategoriesSection = () => {
     <div
       className={`w-full p-4 ${isDark ? "bg-gray-900" : "bg-white"} rounded-lg shadow`}
     >
-      <h1
-        className={`text-xl font-Poppins font-semibold ${isDark ? "text-white" : "text-black"} mb-6`}
-      >
-        {hasCategories ? "Edit Categories" : "Create Categories"}
-      </h1>
-
+      
       {/* Categories List with Editing */}
       <div className="space-y-4">
         <div className="flex justify-between items-center mb-4">
