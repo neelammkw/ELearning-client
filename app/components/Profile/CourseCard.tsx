@@ -41,16 +41,6 @@ const CourseCard: FC<Props> = ({
 
   return (
     <div className="relative p-2">
-      {/* Progress Bar Overlay */}
-      {showProgress && (
-        <div className="absolute top-4 left-4 right-4 bg-gray-200/80 dark:bg-gray-700/80 rounded-full h-2 z-10">
-          <div
-            className="bg-blue-600 h-2 rounded-full transition-all duration-500"
-            style={{ width: `${progress}%` }}
-          ></div>
-        </div>
-      )}
-
       <motion.div
         className={`relative w-full h-full rounded-xl overflow-hidden border ${
           theme === "dark"

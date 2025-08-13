@@ -84,7 +84,7 @@ const CoursePreview: React.FC<Props> = ({
   }, 0);
 
   const discountPercentage =
-    price > 0 ? Math.round(((price - estimatedPrice) / price) * 100) : 0;
+    estimatedPrice > 0 ? Math.round(((estimatedPrice - price) / estimatedPrice) * 100) : 0;
 
   // Format duration to hours and minutes
   const formatDuration = (minutes: number) => {
@@ -358,7 +358,7 @@ const CoursePreview: React.FC<Props> = ({
                       <span
                         className={`line-through ${isDark ? "text-gray-400" : "text-gray-500"}`}
                       >
-                        ₹{price}
+                        ₹{estimatedPrice}
                       </span>
                       <span
                         className={`px-2 py-1 rounded text-xs font-medium ${isDark
@@ -374,7 +374,7 @@ const CoursePreview: React.FC<Props> = ({
                     className={`text-3xl font-bold ${isDark ? "text-green-400" : "text-green-600"
                       }`}
                   >
-                    ₹{estimatedPrice}
+                    ₹{price}
                   </div>
                 </div>
 
