@@ -15,6 +15,7 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Divider,
 } from "@mui/material";
 import { useTheme } from "next-themes";
 import {
@@ -50,7 +51,7 @@ const AdminDashboard = () => {
   const { theme } = useTheme();
   const isDark = theme === "dark";
   const isMobile = useMediaQuery("(max-width:600px)");
-  const isMediumScreen = useMediaQuery("(max-width:960px)");
+  const isTablet = useMediaQuery("(max-width:960px)");
 
   // Analytics queries
   const { data: usersResponse, isLoading: usersLoading } =
@@ -239,336 +240,308 @@ const AdminDashboard = () => {
     return null;
   };
 
-  return (
+ return (
     <Box
       sx={{
-        p: isMobile ? 1 : 1,
+        p: isMobile ? 2 : 3,
         maxWidth: "100%",
         overflowX: "hidden",
+        backgroundColor: isDark ? "#121212" : "#f5f5f5",
+        minHeight: "100vh",
       }}
     >
       <DashboardHero title="Admin Dashboard" />
 
-      {/* Summary Cards - Full width with even spacing */}
-      <Grid
-        container
-        spacing={isMobile ? 1 : 2}
-        sx={{
-          mb: 4,
-          justifyContent: "space-between",
-        }}
-      >
+      {/* Summary Cards - Responsive Grid */}
+      <Grid container spacing={isMobile ? 2 : 3} sx={{ mb: 4 }}>
         {[
           {
             title: "Total Users",
             value: stats.totalUsers.toLocaleString(),
-            icon: <PeopleIcon color={isDark ? "#fff" : "#3f51b5"} />,
-            bgColor: isDark ? "#3f51b5" : "#e3f2fd",
+            icon: <PeopleIcon color={isDark ? "#90caf9" : "#1976d2"} />,
+            bgColor: isDark ? "#1e3a8a" : "#dbeafe",
+            textColor: isDark ? "#e0f2fe" : "#1e3b8a",
             secondary: `${Math.abs(stats.userGrowth).toFixed(1)}% ${stats.userGrowth >= 0 ? "↑" : "↓"}`,
-            secondaryColor: stats.userGrowth >= 0 ? "#4caf50" : "#f44336",
-            iconComponent: (
-              <GrowthIcon
-                size={16}
-                color={stats.userGrowth >= 0 ? "#4caf50" : "#f44336"}
-              />
-            ),
+            secondaryColor: stats.userGrowth >= 0 ? "#4ade80" : "#f87171",
           },
           {
             title: "Total Courses",
             value: stats.totalCourses.toLocaleString(),
-            icon: <CourseIcon color={isDark ? "#fff" : "#2196f3"} />,
-            bgColor: isDark ? "#2196f3" : "#e3f2fd",
+            icon: <CourseIcon color={isDark ? "#86efac" : "#15803d"} />,
+            bgColor: isDark ? "#14532d" : "#dcfce7",
+            textColor: isDark ? "#bbf7d0" : "#166534",
             secondary: `${stats.totalEnrollments.toLocaleString()} enrollments`,
-            secondaryColor: isDark ? "#4fc3f7" : "#0288d1",
+            secondaryColor: isDark ? "#a5f3fc" : "#0e7490",
           },
           {
             title: "Total Orders",
             value: stats.totalOrders.toLocaleString(),
-            icon: <OrderIcon color={isDark ? "#fff" : "#388e3c"} />,
-            bgColor: isDark ? "#4caf50" : "#e8f5e9",
+            icon: <OrderIcon color={isDark ? "#fca5a5" : "#b91c1c"} />,
+            bgColor: isDark ? "#7f1d1d" : "#fee2e2",
+            textColor: isDark ? "#fecaca" : "#991b1b",
             secondary: `+${stats.lastMonthOrders} this month`,
-            secondaryColor: isDark ? "#81c784" : "#388e3c",
+            secondaryColor: isDark ? "#fcd34d" : "#92400e",
           },
           {
             title: "Total Revenue",
             value: `$${stats.totalRevenue.toLocaleString()}`,
-            icon: <RevenueIcon color={isDark ? "#fff" : "#f57c00"} />,
-            bgColor: isDark ? "#ff9800" : "#fff3e0",
+            icon: <RevenueIcon color={isDark ? "#a78bfa" : "#7c3aed"} />,
+            bgColor: isDark ? "#4c1d95" : "#ede9fe",
+            textColor: isDark ? "#c4b5fd" : "#5b21b6",
             secondary: `$${stats.lastMonthRevenue.toLocaleString()} last month`,
-            secondaryColor: isDark ? "#ffb74d" : "#f57c00",
+            secondaryColor: isDark ? "#f9a8d4" : "#9d174d",
           },
         ].map((card, index) => (
-          <Grid
-            item
-            key={index}
-            xs={12}
-            sm={5.8}
-            md={2.8}
-            lg={2.8}
-            sx={{
-              minWidth: isMobile ? "100%" : "auto",
-              flexGrow: 1,
-            }}
-          >
+          <Grid item xs={12} sm={6} md={3} key={index}>
             <Card
               sx={{
-                bgcolor: isDark ? "#2a2a40" : "#ffffff",
-                borderRadius: 3,
+                bgcolor: card.bgColor,
+                borderRadius: 2,
                 boxShadow: isDark
-                  ? "0 4px 20px rgba(0,0,0,0.2)"
-                  : "0 4px 20px rgba(0,0,0,0.05)",
+                  ? "0 4px 6px rgba(0,0,0,0.3)"
+                  : "0 4px 6px rgba(0,0,0,0.1)",
                 height: "100%",
+                transition: "transform 0.3s, box-shadow 0.3s",
+                "&:hover": {
+                  transform: "translateY(-4px)",
+                  boxShadow: isDark
+                    ? "0 10px 15px rgba(0,0,0,0.3)"
+                    : "0 10px 15px rgba(0,0,0,0.1)",
+                },
               }}
             >
-              <CardContent sx={{ p: isMobile ? 1.5 : 2 }}>
-                <div className="flex items-center justify-between">
-                  <div>
+              <CardContent sx={{ p: 2 }}>
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Box>
                     <Typography
-                      color="text.secondary"
-                      gutterBottom
-                      variant={isMobile ? "body2" : "body1"}
+                      variant="subtitle2"
+                      sx={{
+                        color: card.textColor,
+                        opacity: 0.8,
+                        fontWeight: 500,
+                      }}
                     >
                       {card.title}
                     </Typography>
                     <Typography
-                      variant={isMobile ? "h5" : "h4"}
-                      component="div"
-                      sx={{ fontWeight: 700 }}
+                      variant="h5"
+                      sx={{
+                        color: card.textColor,
+                        fontWeight: 700,
+                        mt: 0.5,
+                      }}
                     >
                       {card.value}
                     </Typography>
-                    <div className="flex items-center mt-1">
-                      {card.iconComponent && <>{card.iconComponent}</>}
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          ml: card.iconComponent ? 0.5 : 0,
-                          color: card.secondaryColor,
-                        }}
-                      >
-                        {card.secondary}
-                      </Typography>
-                    </div>
-                  </div>
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: card.secondaryColor,
+                        fontWeight: 600,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 0.5,
+                        mt: 1,
+                      }}
+                    >
+                      {card.secondary}
+                    </Typography>
+                  </Box>
                   <Avatar
                     sx={{
-                      bgcolor: card.bgColor,
-                      width: isMobile ? 40 : 56,
-                      height: isMobile ? 40 : 56,
+                      bgcolor: isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)",
+                      width: 44,
+                      height: 44,
                     }}
                   >
                     {card.icon}
                   </Avatar>
-                </div>
+                </Box>
               </CardContent>
             </Card>
           </Grid>
         ))}
       </Grid>
 
-      {/* Charts Section - Full width with responsive layout */}
-      <Grid
-        container
-        spacing={isMobile ? 2 : 3}
-        sx={{
-          mb: 4,
-          width: '100%',
-          marginLeft: 0,
-          marginRight: 0,
-        }}
-      >
-        {/* User Growth Chart - Full width on mobile, half on desktop */}
-        <Grid
-          item
-          xs={12}
-          md={6}
-          sx={{
-            paddingLeft: '0 !important',
-            paddingRight: isMobile ? '0 !important' : '8px !important',
-          }}
-        >
+      {/* Charts Section - Side by Side */}
+      <Grid container spacing={isTablet ? 2 : 3} sx={{ mb: 4 }}>
+        <Grid item xs={12} md={6}>
           <Card
             sx={{
-              bgcolor: isDark ? '#2a2a40' : '#ffffff',
-              p: isMobile ? 1 : 2,
-              borderRadius: 3,
+              bgcolor: isDark ? "#1e1e1e" : "#ffffff",
+              borderRadius: 2,
               boxShadow: isDark
-                ? '0 4px 20px rgba(0,0,0,0.2)'
-                : '0 4px 20px rgba(0,0,0,0.05)',
-              width: '100%',
-              height: '100%',
+                ? "0 4px 6px rgba(0,0,0,0.3)"
+                : "0 4px 6px rgba(0,0,0,0.1)",
+              p: 2,
             }}
           >
             <Typography
-              variant={isMobile ? 'subtitle1' : 'h6'}
-              gutterBottom
+              variant="h6"
               sx={{
+                color: isDark ? "#e0f2fe" : "#1e3b8a",
+                mb: 2,
                 fontWeight: 600,
-                color: isDark ? '#fff' : 'inherit',
               }}
             >
               User Growth (Last 12 Months)
             </Typography>
-            <div style={{
-              height: isMobile ? 250 : 300,
-              width: '100%',
-            }}>
+            <Box sx={{ height: 300 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={formatUserData()}>
+                  <defs>
+                    <linearGradient id="colorUsers" x1="0" y1="0" x2="0" y2="1">
+                      <stop
+                        offset="5%"
+                        stopColor={isDark ? "#3b82f6" : "#2563eb"}
+                        stopOpacity={0.8}
+                      />
+                      <stop
+                        offset="95%"
+                        stopColor={isDark ? "#3b82f6" : "#2563eb"}
+                        stopOpacity={0.1}
+                      />
+                    </linearGradient>
+                  </defs>
                   <CartesianGrid
                     strokeDasharray="3 3"
-                    stroke={isDark ? '#555' : '#eee'}
+                    stroke={isDark ? "#374151" : "#e5e7eb"}
                   />
                   <XAxis
                     dataKey="name"
-                    tick={{ fill: isDark ? '#fff' : '#666' }}
+                    tick={{ fill: isDark ? "#9ca3af" : "#6b7280" }}
                   />
-                  <YAxis tick={{ fill: isDark ? '#fff' : '#666' }} />
-                  <Tooltip content={<CustomTooltip />} />
+                  <YAxis tick={{ fill: isDark ? "#9ca3af" : "#6b7280" }} />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: isDark ? "#1f2937" : "#ffffff",
+                      borderColor: isDark ? "#374151" : "#e5e7eb",
+                      color: isDark ? "#f3f4f6" : "#111827",
+                    }}
+                  />
                   <Area
                     type="monotone"
                     dataKey="users"
-                    stroke="#8884d8"
-                    fill="#8884d8"
-                    fillOpacity={0.2}
+                    stroke={isDark ? "#3b82f6" : "#2563eb"}
+                    fillOpacity={1}
+                    fill="url(#colorUsers)"
                   />
                 </AreaChart>
               </ResponsiveContainer>
-            </div>
+            </Box>
           </Card>
         </Grid>
 
-        {/* Orders & Revenue Chart - Full width on mobile, half on desktop */}
-        <Grid
-          item
-          xs={12}
-          md={6}
-          sx={{
-            paddingLeft: isMobile ? '0 !important' : '8px !important',
-            paddingRight: '0 !important',
-          }}
-        >
+        <Grid item xs={12} md={6}>
           <Card
             sx={{
-              bgcolor: isDark ? '#2a2a40' : '#ffffff',
-              p: isMobile ? 1 : 2,
-              borderRadius: 3,
+              bgcolor: isDark ? "#1e1e1e" : "#ffffff",
+              borderRadius: 2,
               boxShadow: isDark
-                ? '0 4px 20px rgba(0,0,0,0.2)'
-                : '0 4px 20px rgba(0,0,0,0.05)',
-              width: '100%',
-              height: '100%',
+                ? "0 4px 6px rgba(0,0,0,0.3)"
+                : "0 4px 6px rgba(0,0,0,0.1)",
+              p: 2,
             }}
           >
             <Typography
-              variant={isMobile ? 'subtitle1' : 'h6'}
-              gutterBottom
+              variant="h6"
               sx={{
+                color: isDark ? "#e0f2fe" : "#1e3b8a",
+                mb: 2,
                 fontWeight: 600,
-                color: isDark ? '#fff' : 'inherit',
               }}
             >
               Orders & Revenue (Last 12 Months)
             </Typography>
-            <div style={{
-              height: isMobile ? 250 : 300,
-              width: '100%',
-            }}>
+            <Box sx={{ height: 300 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={formatOrderData()}>
                   <CartesianGrid
                     strokeDasharray="3 3"
-                    stroke={isDark ? '#555' : '#eee'}
+                    stroke={isDark ? "#374151" : "#e5e7eb"}
                   />
                   <XAxis
                     dataKey="name"
-                    tick={{ fill: isDark ? '#fff' : '#666' }}
+                    tick={{ fill: isDark ? "#9ca3af" : "#6b7280" }}
                   />
                   <YAxis
                     yAxisId="left"
                     orientation="left"
-                    stroke="#8884d8"
-                    tick={{ fill: isDark ? '#fff' : '#666' }}
+                    tick={{ fill: isDark ? "#9ca3af" : "#6b7280" }}
                   />
                   <YAxis
                     yAxisId="right"
                     orientation="right"
-                    stroke="#82ca9d"
-                    tick={{ fill: isDark ? '#fff' : '#666' }}
+                    tick={{ fill: isDark ? "#9ca3af" : "#6b7280" }}
                   />
-                  <Tooltip content={<CustomTooltip />} />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: isDark ? "#1f2937" : "#ffffff",
+                      borderColor: isDark ? "#374151" : "#e5e7eb",
+                      color: isDark ? "#f3f4f6" : "#111827",
+                    }}
+                  />
                   <Legend />
                   <Bar
                     yAxisId="left"
                     dataKey="orders"
                     name="Orders"
-                    fill="#8884d8"
+                    fill={isDark ? "#8b5cf6" : "#7c3aed"}
+                    radius={[4, 4, 0, 0]}
                   />
                   <Bar
                     yAxisId="right"
                     dataKey="revenue"
                     name="Revenue ($)"
-                    fill="#82ca9d"
+                    fill={isDark ? "#10b981" : "#059669"}
+                    radius={[4, 4, 0, 0]}
                   />
                 </BarChart>
               </ResponsiveContainer>
-            </div>
+            </Box>
           </Card>
         </Grid>
       </Grid>
-      {/* Tables Section - Side by side on desktop */}
-      <Grid
-        container
-        spacing={isMobile ? 2 : 2}
-        sx={{
-          width: "100%",
-          marginLeft: 0,
-          marginRight: 0,
-        }}
-      >
-        <Grid
-          item
-          xs={12}
-          md={5}
-          sx={{
-            paddingLeft: "0 !important",
-          }}
-        >
+
+      {/* Tables Section - Side by Side */}
+      <Grid container spacing={isTablet ? 2 : 3}>
+        <Grid item xs={12} md={6}>
           <Card
             sx={{
-              bgcolor: isDark ? "#2a2a40" : "#ffffff",
-              p: isMobile ? 1 : 2,
-              borderRadius: 3,
+              bgcolor: isDark ? "#1e1e1e" : "#ffffff",
+              borderRadius: 2,
               boxShadow: isDark
-                ? "0 4px 20px rgba(0,0,0,0.2)"
-                : "0 4px 20px rgba(0,0,0,0.05)",
-              height: "100%",
+                ? "0 4px 6px rgba(0,0,0,0.3)"
+                : "0 4px 6px rgba(0,0,0,0.1)",
             }}
           >
             <Typography
-              variant={isMobile ? "subtitle1" : "h6"}
-              gutterBottom
+              variant="h6"
               sx={{
+                p: 2,
+                color: isDark ? "#e0f2fe" : "#1e3b8a",
                 fontWeight: 600,
-                color: isDark ? "#fff" : "inherit",
+                borderBottom: `1px solid ${isDark ? "#374151" : "#e5e7eb"}`,
               }}
             >
               Recent Orders
             </Typography>
-            <TableContainer
-              sx={{
-                bgcolor: "transparent",
-                boxShadow: "none",
-                maxHeight: isMobile ? 250 : 350,
-              }}
-            >
+            <TableContainer sx={{ maxHeight: 400 }}>
               <Table size={isMobile ? "small" : "medium"}>
                 <TableHead>
-                  <TableRow sx={{ bgcolor: isDark ? "#1e1e2d" : "#f5f5f5" }}>
+                  <TableRow
+                    sx={{
+                      bgcolor: isDark ? "#111827" : "#f3f4f6",
+                    }}
+                  >
                     <TableCell
                       sx={{
                         fontWeight: 600,
-                        color: isDark ? "#fff" : "inherit",
+                        color: isDark ? "#f3f4f6" : "#111827",
                       }}
                     >
                       Course
@@ -576,7 +549,7 @@ const AdminDashboard = () => {
                     <TableCell
                       sx={{
                         fontWeight: 600,
-                        color: isDark ? "#fff" : "inherit",
+                        color: isDark ? "#f3f4f6" : "#111827",
                       }}
                     >
                       User
@@ -584,7 +557,7 @@ const AdminDashboard = () => {
                     <TableCell
                       sx={{
                         fontWeight: 600,
-                        color: isDark ? "#fff" : "inherit",
+                        color: isDark ? "#f3f4f6" : "#111827",
                       }}
                       align="right"
                     >
@@ -594,17 +567,27 @@ const AdminDashboard = () => {
                 </TableHead>
                 <TableBody>
                   {stats.recentOrders.map((order: any) => (
-                    <TableRow key={order._id || order.id} hover>
-                      <TableCell sx={{ color: isDark ? "#fff" : "inherit" }}>
+                    <TableRow
+                      key={order._id || order.id}
+                      hover
+                      sx={{
+                        "&:nth-of-type(odd)": {
+                          backgroundColor: isDark
+                            ? "rgba(255,255,255,0.05)"
+                            : "rgba(0,0,0,0.02)",
+                        },
+                      }}
+                    >
+                      <TableCell sx={{ color: isDark ? "#e5e7eb" : "#111827" }}>
                         {order.courseId?.name ||
                           order.courses?.[0]?.name ||
                           "N/A"}
                       </TableCell>
-                      <TableCell sx={{ color: isDark ? "#fff" : "inherit" }}>
+                      <TableCell sx={{ color: isDark ? "#e5e7eb" : "#111827" }}>
                         {order.userId?.name || order.userId?.email || "N/A"}
                       </TableCell>
                       <TableCell
-                        sx={{ color: isDark ? "#fff" : "inherit" }}
+                        sx={{ color: isDark ? "#e5e7eb" : "#111827" }}
                         align="right"
                       >
                         $
@@ -622,50 +605,39 @@ const AdminDashboard = () => {
           </Card>
         </Grid>
 
-        <Grid
-          item
-          xs={12}
-          md={5}
-          sx={{
-            paddingLeft: isMediumScreen ? "0 !important" : "16px !important",
-            paddingRight: "0 !important",
-          }}
-        >
+        <Grid item xs={12} md={6}>
           <Card
             sx={{
-              bgcolor: isDark ? "#2a2a40" : "#ffffff",
-              p: isMobile ? 1 : 2,
-              borderRadius: 3,
+              bgcolor: isDark ? "#1e1e1e" : "#ffffff",
+              borderRadius: 2,
               boxShadow: isDark
-                ? "0 4px 20px rgba(0,0,0,0.2)"
-                : "0 4px 20px rgba(0,0,0,0.05)",
-              height: "100%",
+                ? "0 4px 6px rgba(0,0,0,0.3)"
+                : "0 4px 6px rgba(0,0,0,0.1)",
             }}
           >
             <Typography
-              variant={isMobile ? "subtitle1" : "h6"}
-              gutterBottom
+              variant="h6"
               sx={{
+                p: 2,
+                color: isDark ? "#e0f2fe" : "#1e3b8a",
                 fontWeight: 600,
-                color: isDark ? "#fff" : "inherit",
+                borderBottom: `1px solid ${isDark ? "#374151" : "#e5e7eb"}`,
               }}
             >
               Recent Users
             </Typography>
-            <TableContainer
-              sx={{
-                bgcolor: "transparent",
-                boxShadow: "none",
-                maxHeight: isMobile ? 250 : 350,
-              }}
-            >
+            <TableContainer sx={{ maxHeight: 400 }}>
               <Table size={isMobile ? "small" : "medium"}>
                 <TableHead>
-                  <TableRow sx={{ bgcolor: isDark ? "#1e1e2d" : "#f5f5f5" }}>
+                  <TableRow
+                    sx={{
+                      bgcolor: isDark ? "#111827" : "#f3f4f6",
+                    }}
+                  >
                     <TableCell
                       sx={{
                         fontWeight: 600,
-                        color: isDark ? "#fff" : "inherit",
+                        color: isDark ? "#f3f4f6" : "#111827",
                       }}
                     >
                       Name
@@ -673,7 +645,7 @@ const AdminDashboard = () => {
                     <TableCell
                       sx={{
                         fontWeight: 600,
-                        color: isDark ? "#fff" : "inherit",
+                        color: isDark ? "#f3f4f6" : "#111827",
                       }}
                     >
                       Email
@@ -681,7 +653,7 @@ const AdminDashboard = () => {
                     <TableCell
                       sx={{
                         fontWeight: 600,
-                        color: isDark ? "#fff" : "inherit",
+                        color: isDark ? "#f3f4f6" : "#111827",
                       }}
                       align="right"
                     >
@@ -691,15 +663,25 @@ const AdminDashboard = () => {
                 </TableHead>
                 <TableBody>
                   {stats.recentUsers.map((user: any) => (
-                    <TableRow key={user._id} hover>
-                      <TableCell sx={{ color: isDark ? "#fff" : "inherit" }}>
+                    <TableRow
+                      key={user._id}
+                      hover
+                      sx={{
+                        "&:nth-of-type(odd)": {
+                          backgroundColor: isDark
+                            ? "rgba(255,255,255,0.05)"
+                            : "rgba(0,0,0,0.02)",
+                        },
+                      }}
+                    >
+                      <TableCell sx={{ color: isDark ? "#e5e7eb" : "#111827" }}>
                         {user.name}
                       </TableCell>
-                      <TableCell sx={{ color: isDark ? "#fff" : "inherit" }}>
+                      <TableCell sx={{ color: isDark ? "#e5e7eb" : "#111827" }}>
                         {user.email}
                       </TableCell>
                       <TableCell
-                        sx={{ color: isDark ? "#fff" : "inherit" }}
+                        sx={{ color: isDark ? "#e5e7eb" : "#111827" }}
                         align="right"
                       >
                         {new Date(user.createdAt).toLocaleDateString()}
