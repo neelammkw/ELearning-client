@@ -54,12 +54,12 @@ const EnrolledCourses: FC = () => {
                     isProfile={true}
                     isEnrolled={true}
                   />
-                  <div className="absolute top-4 left-4 right-4 bg-gray-200 dark:bg-gray-700 rounded-full h-2 z-10">
+                  {/* <div className="absolute top-4 left-4 right-4 bg-gray-200 dark:bg-gray-700 rounded-full h-2 z-10">
                     <div
                       className="bg-blue-600 h-2 rounded-full"
                       style={{ width: `${course.progress || 0}%` }}
                     />
-                  </div>
+                  </div> */}
                 </div>
               ))}
             </div>
