@@ -293,7 +293,7 @@ const AdminDashboard = () => {
           },
         ].map((card, index) => (
 
-          <Grid item xs={12} sm={6} md={6} key={index} sx=sx={{ display: 'flex', justifyContent: 'space-between', alignItems:'center' }}
+          <Grid item xs={12} sm={6} md={6} key={index} sx={{ display: 'flex', justifyContent: 'space-between', alignItems:'center' }}
           >
             <Card
               sx={{
