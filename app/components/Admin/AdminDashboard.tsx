@@ -243,10 +243,8 @@ const AdminDashboard = () => {
   return (
     <Box
       sx={{
-        p: isMobile ? 2 : 3,
         maxWidth: "100%",
         overflowX: "hidden",
-        backgroundColor: isDark ? "#121212" : "#f5f5f5",
         minHeight: "100vh",
       }}
     >
@@ -318,7 +316,7 @@ const AdminDashboard = () => {
               <CardContent sx={{ p: 3, flex: 1 }}>
                 <Box
                   display="flex"
-                  justifyContent="space-between"
+                  justifyContent="space-evenly"
                   alignItems="center"
                 >
                   <Box>
