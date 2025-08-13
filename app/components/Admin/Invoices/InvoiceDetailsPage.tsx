@@ -177,10 +177,19 @@ const InvoiceDetailsPage = ({ id }: Props) => {
             }}
           >
             <Box>
-              <Typography variant="h4" fontWeight="bold" gutterBottom>
+              <Typography
+                variant="h4"
+                sx={{
+                  fontSize: {
+                    xs: '1.5rem', 
+                    sm: '2.125rem' 
+                  },
+                  fontWeight: "bold",
+                  gutterBottom
+                }}
+              >
                 Invoice #{invoice.id}
               </Typography>
-              {/* <StatusBadge status={invoice.status} /> */}
             </Box>
 
             <Box sx={{ textAlign: { xs: "left", md: "right" } }}>

@@ -3,6 +3,8 @@ import React, { FC, useState, useEffect } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { useTheme } from "next-themes";
+import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 interface Props {
   benefits: { title: string }[];
@@ -119,13 +121,29 @@ const CourseData: FC<Props> = ({
 
   return (
     <div className="w-[90%] m-auto mt-10">
+      <div className="w-full mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className={`py-6 ${isDark ? "bg-gray-800" : "bg-white"} rounded-lg shadow-md`}
+        >
+          <div className="w-[90%] max-w-7xl mx-auto">
+            <h1 className={`text-2xl md:text-3xl font-bold ${isDark ? "text-white" : "text-gray-900"} mb-2`}>
+              {isEdit ? "Edit Course Content" : "Define Course Content"}
+            </h1>
+            <p className={`${isDark ? "text-gray-300" : "text-gray-600"}`}>
+              {isEdit ? "Update what students will learn and requirements" : "Specify benefits and prerequisites for your course"}
+            </p>
+          </div>
+        </motion.div>
+      </div>
+
       <div
         className={`backdrop-blur-sm bg-opacity-50 ${isDark ? "bg-slate-800 text-white" : "bg-slate-100 text-black"
           } rounded-lg shadow-lg p-4 mb-6`}
       >
-        <h3>
-          Course Options
-        </h3>
+       
         {/* Benefits Section */}
         <div className="mb-8">
           <label className={`${styles.label} text-[20px] block mb-4`}>

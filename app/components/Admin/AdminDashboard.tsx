@@ -366,7 +366,7 @@ const AdminDashboard = () => {
         ))}
       </Grid>
 
-      {/* Charts Section - Full width with no extra space */}
+      {/* Charts Section - Full width with responsive layout */}
       <Grid
         container
         spacing={isMobile ? 2 : 3}
@@ -377,15 +377,14 @@ const AdminDashboard = () => {
           marginRight: 0,
         }}
       >
+        {/* User Growth Chart - Full width on mobile, half on desktop */}
         <Grid
           item
           xs={12}
           md={6}
           sx={{
             paddingLeft: '0 !important',
-            paddingRight: isMediumScreen ? '0 !important' : '8px !important',
-            display: 'flex',
-            justifyContent: 'center'
+            paddingRight: isMobile ? '0 !important' : '8px !important',
           }}
         >
           <Card
@@ -397,7 +396,7 @@ const AdminDashboard = () => {
                 ? '0 4px 20px rgba(0,0,0,0.2)'
                 : '0 4px 20px rgba(0,0,0,0.05)',
               width: '100%',
-              maxWidth: '100%',
+              height: '100%',
             }}
           >
             <Typography
@@ -413,7 +412,6 @@ const AdminDashboard = () => {
             <div style={{
               height: isMobile ? 250 : 300,
               width: '100%',
-              minWidth: '100%'
             }}>
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={formatUserData()}>
@@ -440,15 +438,14 @@ const AdminDashboard = () => {
           </Card>
         </Grid>
 
+        {/* Orders & Revenue Chart - Full width on mobile, half on desktop */}
         <Grid
           item
           xs={12}
           md={6}
           sx={{
-            paddingLeft: isMediumScreen ? '0 !important' : '8px !important',
+            paddingLeft: isMobile ? '0 !important' : '8px !important',
             paddingRight: '0 !important',
-            display: 'flex',
-            justifyContent: 'center'
           }}
         >
           <Card
@@ -460,7 +457,7 @@ const AdminDashboard = () => {
                 ? '0 4px 20px rgba(0,0,0,0.2)'
                 : '0 4px 20px rgba(0,0,0,0.05)',
               width: '100%',
-              maxWidth: '100%',
+              height: '100%',
             }}
           >
             <Typography
@@ -476,7 +473,6 @@ const AdminDashboard = () => {
             <div style={{
               height: isMobile ? 250 : 300,
               width: '100%',
-              minWidth: '100%'
             }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={formatOrderData()}>
@@ -533,7 +529,7 @@ const AdminDashboard = () => {
         <Grid
           item
           xs={12}
-          md={6}
+          md={5}
           sx={{
             paddingLeft: "0 !important",
           }}
@@ -629,7 +625,7 @@ const AdminDashboard = () => {
         <Grid
           item
           xs={12}
-          md={6}
+          md={5}
           sx={{
             paddingLeft: isMediumScreen ? "0 !important" : "16px !important",
             paddingRight: "0 !important",

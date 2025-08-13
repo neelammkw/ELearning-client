@@ -6,6 +6,7 @@ import { BsPencil } from "react-icons/bs";
 import { styles } from "@/app/styles/style";
 import toast from "react-hot-toast";
 import { useTheme } from "next-themes";
+import { motion } from "framer-motion";
 
 interface Props {
   active: number;
@@ -228,7 +229,24 @@ const CourseContent: FC<Props> = ({
 
   return (
     <div className="w-[90%] m-auto mt-10 mb-10">
-      
+      <div className="w-full mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className={`py-6 ${isDark ? "bg-gray-800" : "bg-white"} rounded-lg shadow-md`}
+        >
+          <div className="w-[90%] max-w-7xl mx-auto">
+            <h1 className={`text-2xl md:text-3xl font-bold ${isDark ? "text-white" : "text-gray-900"} mb-2`}>
+              {isEdit ? "Edit Course Content" : "Create Course Content"}
+            </h1>
+            <p className={`${isDark ? "text-gray-300" : "text-gray-600"}`}>
+              {isEdit ? "Update your course videos and materials" : "Add videos, descriptions and resources for your course"}
+            </p>
+          </div>
+        </motion.div>
+      </div>
+
       <form onSubmit={handleCourseSubmit}>
         {courseContentData.map((item: any, index: number) => {
           const showSectionInput =
@@ -238,21 +256,17 @@ const CourseContent: FC<Props> = ({
           return (
             <div
               key={index}
-              className={`backdrop-blur-sm bg-opacity-50 ${
-                isDark ? "bg-slate-800" : "bg-slate-100"
-              } rounded-lg shadow-lg p-4 mb-6`}
-            > <h3>
-          Course Content
-        </h3>
+              className={`backdrop-blur-sm bg-opacity-50 ${isDark ? "bg-slate-800" : "bg-slate-100"
+                } rounded-lg shadow-lg p-4 mb-6`}
+            >
               {showSectionInput && (
                 <div className="flex items-center mb-3">
                   <input
                     type="text"
-                    className={`text-[20px] font-Poppins bg-transparent outline-none ${
-                      item.videoSection === "Untitled Section"
+                    className={`text-[20px] font-Poppins bg-transparent outline-none ${item.videoSection === "Untitled Section"
                         ? "w-[170px]"
                         : "w-min"
-                    } ${isDark ? "text-white placeholder-gray-400" : "text-black"}`}
+                      } ${isDark ? "text-white placeholder-gray-400" : "text-black"}`}
                     placeholder="Untitled Video"
                     value={item.videoSection}
                     onChange={(e) => {
@@ -262,9 +276,8 @@ const CourseContent: FC<Props> = ({
                     }}
                   />
                   <BsPencil
-                    className={`ml-2 cursor-pointer ${
-                      isDark ? "text-white" : "text-black"
-                    }`}
+                    className={`ml-2 cursor-pointer ${isDark ? "text-white" : "text-black"
+                      }`}
                   />
                 </div>
               )}
@@ -272,18 +285,16 @@ const CourseContent: FC<Props> = ({
               <div className="flex justify-between items-center">
                 {isCollapsed[index] && item.title && (
                   <p
-                    className={`font-Poppins ${
-                      isDark ? "text-white" : "text-black"
-                    }`}
+                    className={`font-Poppins ${isDark ? "text-white" : "text-black"
+                      }`}
                   >
                     {index + 1}. {item.title} ({item.videoLength} min)
                   </p>
                 )}
                 <div className="flex items-center">
                   <AiOutlineDelete
-                    className={`text-[20px] mr-2 ${
-                      index > 0 ? "cursor-pointer" : "cursor-not-allowed"
-                    } ${isDark ? "text-white" : "text-black"}`}
+                    className={`text-[20px] mr-2 ${index > 0 ? "cursor-pointer" : "cursor-not-allowed"
+                      } ${isDark ? "text-white" : "text-black"}`}
                     onClick={() => {
                       if (index > 0) {
                         const updatedData = [...courseContentData];
@@ -297,9 +308,8 @@ const CourseContent: FC<Props> = ({
                     }}
                   />
                   <MdOutlineKeyboardArrowDown
-                    className={`cursor-pointer transition-transform duration-300 ${
-                      isDark ? "text-white" : "text-black"
-                    }`}
+                    className={`cursor-pointer transition-transform duration-300 ${isDark ? "text-white" : "text-black"
+                      }`}
                     style={{
                       transform: isCollapsed[index]
                         ? "rotate(180deg)"
@@ -314,9 +324,8 @@ const CourseContent: FC<Props> = ({
                 <>
                   <div className="my-3">
                     <label
-                      className={`${styles.label} ${
-                        isDark ? "text-white" : "text-black"
-                      }`}
+                      className={`${styles.label} ${isDark ? "text-white" : "text-black"
+                        }`}
                     >
                       Video Title
                     </label>
@@ -328,11 +337,10 @@ const CourseContent: FC<Props> = ({
                         updatedData[index].title = e.target.value;
                         setCourseContentData(updatedData);
                       }}
-                      className={`${styles.input} mt-1 ${
-                        isDark
+                      className={`${styles.input} mt-1 ${isDark
                           ? "text-white placeholder-gray-400"
                           : "text-black"
-                      }`}
+                        }`}
                       placeholder="Enter video title..."
                       required
                     />
@@ -340,9 +348,8 @@ const CourseContent: FC<Props> = ({
 
                   <div className="my-3">
                     <label
-                      className={`${styles.label} ${
-                        isDark ? "text-white" : "text-black"
-                      }`}
+                      className={`${styles.label} ${isDark ? "text-white" : "text-black"
+                        }`}
                     >
                       {item.videoPreview || item.videoUrl?.url
                         ? "Change Video"
@@ -357,9 +364,8 @@ const CourseContent: FC<Props> = ({
                           handleVideoUpload(index, file);
                         }
                       }}
-                      className={`${styles.input} mt-1 ${
-                        isDark ? "text-white" : "text-black"
-                      }`}
+                      className={`${styles.input} mt-1 ${isDark ? "text-white" : "text-black"
+                        }`}
                     />
                     {(item.videoPreview || item.videoUrl?.url) && (
                       <div className="mt-2">
@@ -381,9 +387,8 @@ const CourseContent: FC<Props> = ({
 
                   <div className="my-3">
                     <label
-                      className={`${styles.label} ${
-                        isDark ? "text-white" : "text-black"
-                      }`}
+                      className={`${styles.label} ${isDark ? "text-white" : "text-black"
+                        }`}
                     >
                       Video Length (minutes)
                     </label>
@@ -397,11 +402,10 @@ const CourseContent: FC<Props> = ({
                           parseInt(e.target.value) || 0;
                         setCourseContentData(updatedData);
                       }}
-                      className={`${styles.input} mt-1 ${
-                        isDark
+                      className={`${styles.input} mt-1 ${isDark
                           ? "text-white placeholder-gray-400"
                           : "text-black"
-                      }`}
+                        }`}
                       placeholder="Enter video length in minutes"
                       required
                     />
@@ -409,9 +413,8 @@ const CourseContent: FC<Props> = ({
 
                   <div className="my-3">
                     <label
-                      className={`${styles.label} ${
-                        isDark ? "text-white" : "text-black"
-                      }`}
+                      className={`${styles.label} ${isDark ? "text-white" : "text-black"
+                        }`}
                     >
                       Description
                     </label>
@@ -422,11 +425,10 @@ const CourseContent: FC<Props> = ({
                         updatedData[index].description = e.target.value;
                         setCourseContentData(updatedData);
                       }}
-                      className={`${styles.input} mt-1 ${
-                        isDark
+                      className={`${styles.input} mt-1 ${isDark
                           ? "text-white placeholder-gray-400"
                           : "text-black"
-                      }`}
+                        }`}
                       placeholder="Enter description..."
                       rows={4}
                       required
@@ -437,18 +439,16 @@ const CourseContent: FC<Props> = ({
                     <div className="mb-3" key={linkIndex}>
                       <div className="flex justify-between items-center">
                         <label
-                          className={`${styles.label} ${
-                            isDark ? "text-white" : "text-black"
-                          }`}
+                          className={`${styles.label} ${isDark ? "text-white" : "text-black"
+                            }`}
                         >
                           Link {linkIndex + 1}
                         </label>
                         <AiOutlineDelete
-                          className={`${
-                            linkIndex === 0
+                          className={`${linkIndex === 0
                               ? "cursor-not-allowed"
                               : "cursor-pointer"
-                          } text-[20px] ${isDark ? "text-white" : "text-black"}`}
+                            } text-[20px] ${isDark ? "text-white" : "text-black"}`}
                           onClick={() =>
                             linkIndex === 0
                               ? null
@@ -466,11 +466,10 @@ const CourseContent: FC<Props> = ({
                             e.target.value;
                           setCourseContentData(updatedData);
                         }}
-                        className={`${styles.input} mt-1 ${
-                          isDark
+                        className={`${styles.input} mt-1 ${isDark
                             ? "text-white placeholder-gray-400"
                             : "text-black"
-                        }`}
+                          }`}
                         required
                       />
                       <input
@@ -483,11 +482,10 @@ const CourseContent: FC<Props> = ({
                             e.target.value;
                           setCourseContentData(updatedData);
                         }}
-                        className={`${styles.input} mt-1 ${
-                          isDark
+                        className={`${styles.input} mt-1 ${isDark
                             ? "text-white placeholder-gray-400"
                             : "text-black"
-                        }`}
+                          }`}
                         required
                       />
                       {link.url && (
@@ -509,11 +507,10 @@ const CourseContent: FC<Props> = ({
                       updatedData[index].links.push({ title: "", url: "" });
                       setCourseContentData(updatedData);
                     }}
-                    className={`text-sm font-medium mt-2 mb-4 flex items-center ${
-                      isDark
+                    className={`text-sm font-medium mt-2 mb-4 flex items-center ${isDark
                         ? "text-blue-400 hover:text-blue-600"
                         : "text-blue-600 hover:text-blue-800"
-                    }`}
+                      }`}
                   >
                     <AiOutlinePlusCircle className="mr-1" /> Add New Link
                   </button>
@@ -523,9 +520,8 @@ const CourseContent: FC<Props> = ({
               {index === courseContentData.length - 1 && (
                 <div className="mt-6">
                   <p
-                    className={`flex items-center text-[18px] cursor-pointer ${
-                      isDark ? "text-white" : "text-black"
-                    }`}
+                    className={`flex items-center text-[18px] cursor-pointer ${isDark ? "text-white" : "text-black"
+                      }`}
                     onClick={newContentHandler}
                   >
                     <AiOutlinePlusCircle className="mr-2" />
@@ -538,9 +534,8 @@ const CourseContent: FC<Props> = ({
         })}
 
         <div
-          className={`flex items-center text-[20px] cursor-pointer ${
-            isDark ? "text-white" : "text-black"
-          }`}
+          className={`flex items-center text-[20px] cursor-pointer ${isDark ? "text-white" : "text-black"
+            }`}
           onClick={addNewSection}
         >
           <AiOutlinePlusCircle className="mr-2" /> Add New Section

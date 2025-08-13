@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useGetLayoutQuery } from "@/redux/features/layout/layoutApi";
+import { motion } from "framer-motion";
 
 interface Props {
   courseInfo: any;
@@ -131,12 +132,27 @@ const CourseInformation: React.FC<Props> = ({
 
   return (
     <div className="w-[90%] m-auto mt-10 mr-15">
+      <div className="w-full mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className={`py-6 ${isDark ? "bg-gray-800" : "bg-white"} rounded-lg shadow-md`}
+        >
+          <div className="w-[90%] max-w-7xl mx-auto">
+            <h1 className={`text-2xl md:text-3xl font-bold ${isDark ? "text-white" : "text-gray-900"} mb-2`}>
+              {isEdit ? "Edit Course Information" : "Create New Course"}
+            </h1>
+            <p className={`${isDark ? "text-gray-300" : "text-gray-600"}`}>
+              {isEdit ? "Update your course details" : "Fill in the basic information for your new course"}
+            </p>
+          </div>
+        </motion.div>
+      </div>
+
       <div
         className={`${isDark ? "text-white" : "text-black"} backdrop-blur-sm bg-opacity-50 ${isDark ? "bg-slate-800" : "bg-slate-100"} rounded-lg shadow-lg p-4 mb-6`}
       >
-        <h3>
-          Course Information
-        </h3>
         <form onSubmit={handleSubmit}>
           {/* Course Name */}
           <div className={divStyle}>

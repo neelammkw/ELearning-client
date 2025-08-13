@@ -64,7 +64,7 @@ const EnrolledCourses: FC = () => {
               ))}
             </div>
 
-            <div className="mt-8">
+            {/* <div className="mt-8">
               <h3 className="text-xl font-semibold mb-4">Learning Progress</h3>
               <div className="space-y-4">
                 {courses.map((course: any) => (
@@ -87,7 +87,7 @@ const EnrolledCourses: FC = () => {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
           </>
         )}
       </div>
