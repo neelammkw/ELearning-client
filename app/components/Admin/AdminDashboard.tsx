@@ -293,9 +293,7 @@ const AdminDashboard = () => {
           },
         ].map((card, index) => (
 
-          <Grid item xs={12} sm={6} md={6} key={index} sx={{
-            display: 'flex',
-          }}
+          <Grid item xs={12} sm={6} md={6} key={index} sx=sx={{ display: 'flex', justifyContent: 'space-between', alignItems:'center' }}
           >
             <Card
               sx={{
@@ -376,7 +374,7 @@ const AdminDashboard = () => {
 
       {/* Charts Section - Side by Side */}
       <Grid container spacing={isTablet ? 2 : 3} sx={{ mb: 4 }}>
-        <Grid item xs={12} md={6} sx={{ display: 'flex' }}>
+        <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'space-between', alignItems:'center' }}>
           <Card
             sx={{
               flex: 1,
@@ -444,7 +442,7 @@ const AdminDashboard = () => {
           </Card>
         </Grid>
 
-        <Grid item xs={12} md={6} sx={{ display: 'flex' }}>
+        <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'space-between', alignItems:'center' }}>
           <Card
             sx={{
               flex:1,
