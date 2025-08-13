@@ -30,7 +30,7 @@ interface IOrder {
   courseId: {
     _id: string;
     name: string;
-    price: number;
+    estimatedPrice: number;
     thumbnail?: {
       url: string;
     };
@@ -140,7 +140,7 @@ const AllInvoices: React.FC<AllInvoicesProps> = ({ id }) => {
         course: {
           name: order.courseId?.name || "Unknown Course",
           thumbnail: order.courseId?.thumbnail?.url || "",
-          price: order.totalAmount || 0,
+          estimatedPrice: order.totalAmount || 0,
         },
         status: order.status || "pending",
         paymentMethod: order.paymentMethod || "unknown",
@@ -207,15 +207,15 @@ const AllInvoices: React.FC<AllInvoicesProps> = ({ id }) => {
       ),
     },
     {
-      field: "course.price",
+      field: "course.estimatedPrice",
       headerName: "AMOUNT",
       flex: isMobile ? 0.5 : 0.8,
       minWidth: isMobile ? 80 : 100,
       type: "number",
-      valueGetter: (params) => params?.row.course.price,
+      valueGetter: (params) => params?.row.course.estimatedPrice,
       renderCell: (params) => (
         <Typography variant="body2" fontWeight="bold" color="primary">
-          ${params?.row.course.price.toFixed(2)}
+          ${params?.row.course.estimatedPrice.toFixed(2)}
         </Typography>
       ),
     },
