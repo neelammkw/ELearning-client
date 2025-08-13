@@ -10,19 +10,12 @@ const EnrolledCourses: FC = () => {
   const { theme } = useTheme();
   const { user } = useSelector((state: any) => state.auth);
   const { data, isLoading, isError, error } = useGetUserCoursesQuery(user?._id, {
-    skip: !user?._id, // Skip if no user ID
-    onError: (err) => {
-      console.error('[Component] Course fetch error:', err);
-    },
-    onSuccess: (data) => {
-      console.log('[Component] Course fetch success:', data);
-    }
+    skip: !user?._id,
   });
 
-  const courses = data || [];
+  const courses = data?.courses || [];
 
   if (isLoading) {
-    console.log("Currently loading courses...");
     return <Loader />;
   }
 
@@ -40,8 +33,6 @@ const EnrolledCourses: FC = () => {
       </div>
     );
   }
-
-  console.log('Rendering courses:', courses);
 
   return (
     <div className={`w-full ${theme === "dark" ? "text-gray-200" : "text-gray-800"}`}>

@@ -146,14 +146,13 @@ const courseApi = apiSlice.injectEndpoints({
       }),
       providesTags: (result, error, id) => [{ type: "Courses", id }],
     }),
-    getUserCourses: builder.query<ICourse[], string>({
-      query: (userId) => ({
-        url: "user-enrolledcourses/${userId}",
+    getUserCourses: builder.query({
+      query: (id) => ({
+        url: `user-enrolledcourses/${id}`,
         method: "GET",
-        credentials: "include",
+        credentials: "include" as const,
       }),
-      
-      providesTags: ["UserCourses"],
+      providesTags: ["UserCourses"], // Changed from invalidatesTags to providesTags
     }),
     checkCourseEnrollment: builder.query<
       {
