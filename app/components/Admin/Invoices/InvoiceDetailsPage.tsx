@@ -40,14 +40,14 @@ const InvoiceDetailsPage = ({ id }: Props) => {
   const calculateDiscountPercentage = () => {
     if (!invoice?.courseId?.estimatedPrice || !invoice?.price) return 0;
     return Math.round(
-      (1 - invoice.price / invoice.courseId.estimatedPrice) * 100,
+      (1 - invoice.estimatedPrice / invoice.courseId.price) * 100,
     );
   };
   const estimatedPrice = invoice?.courseId?.estimatedPrice || 0;
   const salePrice = invoice?.price || invoice?.courseId?.price || 0; // Check both locations
 
   const discountAmount = estimatedPrice - salePrice;
-  const totalAmount = estimatedPrice; // Use actual paid amount if available
+  const totalAmount = salePrice; // Use actual paid amount if available
   const discountPercentage =
     estimatedPrice > 0
       ? Math.round((discountAmount / estimatedPrice) * 100)
@@ -178,11 +178,11 @@ const InvoiceDetailsPage = ({ id }: Props) => {
           >
             <Box>
               <Typography
-                variant="h4"
+                variant="h3"
                 sx={{
                   fontSize: {
-                    xs: '1.5rem', 
-                    sm: '2.125rem' 
+                    xs: '0.5rem', 
+                    sm: '1.5rem' 
                   },
                   fontWeight: "bold"
                 }}
@@ -305,7 +305,7 @@ const InvoiceDetailsPage = ({ id }: Props) => {
                 variant="h6"
                 color={theme === "dark" ? "success.light" : "success.dark"}
               >
-                ${estimatedPrice.toFixed(2)}{" "}
+                ${salePrice.toFixed(2)}{" "}
                 {/* Changed from invoice.price to salePrice */}
               </Typography>
               {salePrice > 0 && (
@@ -315,7 +315,7 @@ const InvoiceDetailsPage = ({ id }: Props) => {
                     color="text.secondary"
                     sx={{ textDecoration: "line-through" }}
                   >
-                    ${salePrice.toFixed(2)}
+                    ${estimatedPrice.toFixed(2)}
                   </Typography>
                   <Typography variant="body2" color="success.main">
                     {discountPercentage}% OFF
@@ -337,7 +337,7 @@ const InvoiceDetailsPage = ({ id }: Props) => {
               sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}
             >
               <Typography variant="body1">Original Price</Typography>
-              <Typography variant="body1">${salePrice.toFixed(2)}</Typography>
+              <Typography variant="body1">${estimatedPrice.toFixed(2)}</Typography>
             </Box>
 
             <Box
@@ -356,7 +356,7 @@ const InvoiceDetailsPage = ({ id }: Props) => {
             >
               <Typography variant="body1">Sale Price</Typography>
               <Typography variant="body1">
-                ${estimatedPrice.toFixed(2)}
+                ${salePrice.toFixed(2)}
               </Typography>
             </Box>
 
