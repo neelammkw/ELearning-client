@@ -40,7 +40,7 @@ const CourseCard: FC<Props> = ({
   };
 
   return (
-    <div className="relative p-3">
+    <div className="relative p-2">
       {/* Progress Bar Overlay */}
       {showProgress && (
         <div className="absolute top-4 left-4 right-4 bg-gray-200/80 dark:bg-gray-700/80 rounded-full h-2 z-10">
@@ -118,7 +118,7 @@ const CourseCard: FC<Props> = ({
           </Link>
 
           {/* Rating and Students */}
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center justify-between mb-2">
             <div className="flex items-center space-x-0.5">
               {stars.map((_, index) => (
                 <span
@@ -128,9 +128,9 @@ const CourseCard: FC<Props> = ({
                   }`}
                 >
                   {rating > index ? (
-                    <AiFillStar className="w-3.5 h-3.5 text-yellow-400" />
+                    <AiFillStar className="w-3 h-3 text-yellow-400" />
                   ) : (
-                    <AiOutlineStar className="w-3.5 h-3.5" />
+                    <AiOutlineStar className="w-3 h-3" />
                   )}
                 </span>
               ))}
