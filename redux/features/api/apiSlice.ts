@@ -5,6 +5,11 @@ export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_SERVER_URI,
+    credentials: "include", // CRITICAL: Add this line
+    prepareHeaders: (headers, { getState }) => {
+      // Optional: Add any custom headers if needed
+      return headers;
+    },
   }),
   tagTypes: [
     "Users",
@@ -22,7 +27,6 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     refreshToken: builder.query({
       query: () => ({
-        // Removed unused data parameter
         url: "refresh",
         method: "GET",
         credentials: "include" as const,
@@ -30,7 +34,6 @@ export const apiSlice = createApi({
     }),
     loadUser: builder.query({
       query: () => ({
-        // Removed unused data parameter
         url: "me",
         method: "GET",
         credentials: "include" as const,
@@ -38,14 +41,14 @@ export const apiSlice = createApi({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
+          // FIX: The server returns { success: true, user } NOT activationToken
           dispatch(
             userLoggedIn({
-              accessToken: result.data.activationToken,
-              user: result.data.user,
+              user: result.data.user, // Changed from activationToken
             }),
           );
         } catch (error) {
-          console.log(error);
+          console.log("Load user error:", error);
         }
       },
     }),

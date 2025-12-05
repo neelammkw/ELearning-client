@@ -12,6 +12,12 @@ type RegistrationData = {
   password: string;
 };
 
+type LoginResponse = {
+  success: boolean;
+  user: any; // Replace with proper IUser type
+  accessToken: string; // This is returned for convenience, but cookies are set
+};
+
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // User registration endpoint
@@ -22,18 +28,16 @@ export const authApi = apiSlice.injectEndpoints({
         body: data,
         credentials: "include" as const,
       }),
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-        try {
-          const result = await queryFulfilled;
-          dispatch(
-            userRegistration({
-              token: result.data.activationToken,
-            }),
-          );
-        } catch (error) {
-          console.log(error);
-        }
-      },
+      // Remove the onQueryStarted or fix it - registration doesn't log user in
+      // async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+      //   try {
+      //     const result = await queryFulfilled;
+      //     // Registration doesn't automatically log user in
+      //     // dispatch(userRegistration({ token: result.data.activationToken }));
+      //   } catch (error) {
+      //     console.log(error);
+      //   }
+      // },
     }),
 
     // Activation endpoint
@@ -48,8 +52,8 @@ export const authApi = apiSlice.injectEndpoints({
       }),
     }),
 
-    // Login endpoint
-    login: builder.mutation({
+    // Login endpoint - FIXED
+    login: builder.mutation<LoginResponse, { email: string; password: string }>({
       query: ({ email, password }) => ({
         url: "login",
         method: "POST",
@@ -62,20 +66,20 @@ export const authApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
+          // Server returns { success: true, user, accessToken }
           dispatch(
             userLoggedIn({
-              accessToken: result.data.activationToken,
-              user: result.data.user,
+              user: result.data.user, // Store user in Redux
             }),
           );
         } catch (error) {
-          console.log(error);
+          console.log("Login error:", error);
         }
       },
     }),
 
-    // Social auth endpoint
-    socialAuth: builder.mutation({
+    // Social auth endpoint - FIXED
+    socialAuth: builder.mutation<LoginResponse, { email: string; name: string; avatar: string }>({
       query: ({ email, name, avatar }) => ({
         url: "social-auth",
         method: "POST",
@@ -91,8 +95,7 @@ export const authApi = apiSlice.injectEndpoints({
           const result = await queryFulfilled;
           dispatch(
             userLoggedIn({
-              accessToken: result.data.activationToken,
-              user: result.data.user,
+              user: result.data.user, // Store user, not activationToken
             }),
           );
         } catch (error) {
@@ -106,8 +109,16 @@ export const authApi = apiSlice.injectEndpoints({
       query: () => ({
         url: "logout",
         method: "GET",
-        credentials: "include",
+        credentials: "include" as const,
       }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          await queryFulfilled;
+          dispatch(userLoggedOut());
+        } catch (error) {
+          console.log(error);
+        }
+      },
     }),
   }),
 });
